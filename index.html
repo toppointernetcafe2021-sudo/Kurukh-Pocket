@@ -4316,6 +4316,11 @@ function startPurchaseWatcher() {
                 updateBadge();
                 await saveUserToFirebase(APP_STATE.user.mobile, APP_STATE.user.name, APP_STATE.user.address);
                 await checkPurchaseStatus(APP_STATE.user.mobile, true);
+                if (APP_STATE.hasPurchased) {
+                    stopPurchaseWatcher();
+                } else {
+                    startPurchaseWatcher();
+                }
                 if (otpTimer) clearInterval(otpTimer);
                 alert('✅ Login Successful! Welcome ' + APP_STATE.user.name);
                 loadPage('home');
@@ -4354,6 +4359,11 @@ function startPurchaseWatcher() {
         // ============================================================================
 
 
+
+function isApprovedFlag(value) {
+    return value === true || value === 'true' || value === 1 || value === '1';
+}
+
 window.checkPurchaseStatus = async function(mobile, silent) {
     try {
         var quiet = !!silent;
@@ -4364,7 +4374,7 @@ window.checkPurchaseStatus = async function(mobile, silent) {
             const data = snap.data();
             console.log("✅ User data found:", data);
 
-            if (data.approved === true) {
+            if (isApprovedFlag(data.approved)) {
                 var wasPurchased = APP_STATE.hasPurchased;
                 APP_STATE.hasPurchased = true;
                 saveState();
@@ -4415,10 +4425,10 @@ window.checkPurchaseStatus = async function(mobile, silent) {
 };
 
 
-function forceCheckPurchase() {
+async function forceCheckPurchase() {
     if (APP_STATE.isLoggedIn && APP_STATE.user) {
         showToast('🔄 Checking payment status...', 2000);
-        checkPurchaseStatus(APP_STATE.user.mobile, false);
+        await checkPurchaseStatus(APP_STATE.user.mobile, false);
     } else {
         showToast('⚠️ Please login first', 2000);
     }
@@ -4790,7 +4800,9 @@ var totalDays = Object.keys(COURSE_DATA.days).length;
                 stopPurchaseWatcher();
             } else if (APP_STATE.isLoggedIn && APP_STATE.user) {
                 startPurchaseWatcher();
-                checkPurchaseStatus(APP_STATE.user.mobile, true);
+                setTimeout(function() {
+                    checkPurchaseStatus(APP_STATE.user.mobile, true);
+                }, 50);
             }
         }
 
