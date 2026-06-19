@@ -3919,10 +3919,9 @@ var dayData = {
 
         var numbers = { 0: 'निर्दी', 1: 'ऑद', 2: 'एंड', 3: 'मूंद', 4: 'नाख', 5: 'पंचे', 6: 'सोय', 7: 'सय', 8: 'अख', 9: 'नय',
             10: 'दोय' };
-        var englishNumbers = { 0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten' };
         var hindiNum = { 1: 'एक', 2: 'दो', 3: 'तीन', 4: 'चार', 5: 'पाँच', 6: 'छह', 7: 'सात', 8: 'आठ', 9: 'नौ', 10: 'दस' };
-        var colours = [{ hin: 'लाल', kur: 'लाल', eng: 'Red' }, { hin: 'हरा', kur: 'हरा', eng: 'Green' }, { hin: 'नीला', kur: 'नीला', eng: 'Blue' }, { hin: 'पीला',
-                kur: 'पीला', eng: 'Yellow' }];
+        var colours = [{ hin: 'लाल', kur: 'लाल' }, { hin: 'हरा', kur: 'हरा' }, { hin: 'नीला', kur: 'नीला' }, { hin: 'पीला',
+                kur: 'पीला' }];
         var gotras = ['केरकेट्टा', 'खलखो', 'खाखा', 'कुजूर', 'टोपो', 'तिर्की', 'टिग्गा', 'मिंज'];
         var proverbs = [
             { kur: 'मला एरके अन्ती', hin: 'नहीं तो देखना', eng: 'If not, then see' },
@@ -3932,94 +3931,36 @@ var dayData = {
         // ============================================================================
         //  AUDIO ENGINE
         // ============================================================================
-        var voicesCache = [];
         var selectedVoice = null;
-
-        function escapeHtml(str) {
-            if (str === null || str === undefined) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
-        function getEnglishText(value) {
-            if (!value) return '';
-            var text = String(value).trim();
-            var match = text.match(/\(([^()]+)\)\s*$/);
-            if (match && match[1]) return match[1].trim();
-            return text;
-        }
-
-        function getVoiceForLang(lang) {
-            lang = (lang || 'hi-IN').toLowerCase();
-            if (!voicesCache || voicesCache.length === 0) return null;
-
-            if (selectedVoice && selectedVoice.lang && selectedVoice.lang.toLowerCase().indexOf(lang.split('-')[0]) === 0) {
-                return selectedVoice;
-            }
-
-            var exact = null;
-            var any = null;
-            for (var i = 0; i < voicesCache.length; i++) {
-                var v = voicesCache[i];
-                var vlang = (v.lang || '').toLowerCase();
-                if (!any) any = v;
-                if (vlang.indexOf(lang.split('-')[0]) === 0) {
-                    exact = v;
-                    if (vlang === lang) break;
-                }
-            }
-
-            if (exact) return exact;
-            if (lang.indexOf('en') === 0) {
-                for (var j = 0; j < voicesCache.length; j++) {
-                    if ((voicesCache[j].lang || '').toLowerCase().indexOf('en') === 0) return voicesCache[j];
-                }
-            }
-            if (lang.indexOf('hi') === 0) {
-                for (var k = 0; k < voicesCache.length; k++) {
-                    if ((voicesCache[k].lang || '').toLowerCase().indexOf('hi') === 0) return voicesCache[k];
-                }
-            }
-            return any;
-        }
 
         function loadVoices() {
             if (!window.speechSynthesis) return;
-            voicesCache = window.speechSynthesis.getVoices() || [];
+            var voices = window.speechSynthesis.getVoices();
             var select = document.getElementById('voiceSelect');
             if (!select) return;
             select.innerHTML = '';
-
-            var displayVoices = [];
-            for (var i = 0; i < voicesCache.length; i++) {
-                var v = voicesCache[i];
-                var vlang = (v.lang || '').toLowerCase();
-                if (vlang.indexOf('hi') === 0 || vlang.indexOf('en') === 0 || /hindi|english/i.test(v.name || '')) {
-                    displayVoices.push(v);
+            var hindiVoices = [];
+            for (var i = 0; i < voices.length; i++) {
+                if (voices[i].lang.includes('hi') || voices[i].name.includes('Hindi')) {
+                    hindiVoices.push(voices[i]);
                 }
             }
-            if (displayVoices.length === 0) displayVoices = voicesCache.slice(0, Math.min(8, voicesCache.length));
-
-            for (var j = 0; j < displayVoices.length; j++) {
-                var opt = document.createElement('option');
-                opt.value = voicesCache.indexOf(displayVoices[j]);
-                opt.text = displayVoices[j].name + ' (' + displayVoices[j].lang + ')';
-                if ((displayVoices[j].lang || '').toLowerCase().indexOf('hi') === 0 && !selectedVoice) {
-                    selectedVoice = displayVoices[j];
-                    opt.selected = true;
+            if (hindiVoices.length === 0) {
+                for (var i = 0; i < Math.min(3, voices.length); i++) {
+                    hindiVoices.push(voices[i]);
                 }
+            }
+            for (var i = 0; i < hindiVoices.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.text = hindiVoices[i].name + ' (' + hindiVoices[i].lang + ')';
+                if (hindiVoices[i].lang === 'hi-IN') opt.selected = true;
                 select.appendChild(opt);
             }
-
-            if (!selectedVoice && displayVoices.length) selectedVoice = displayVoices[0];
-
+            if (hindiVoices.length) selectedVoice = hindiVoices[0];
             select.onchange = function() {
-                var idx = parseInt(this.value, 10);
-                selectedVoice = voicesCache[idx] || displayVoices[0] || null;
+                var idx = parseInt(this.value);
+                selectedVoice = hindiVoices[idx] || hindiVoices[0];
             };
         }
 
@@ -4029,71 +3970,38 @@ var dayData = {
             loadVoices();
         }
 
-        function speakText(text, callback, lang) {
-            lang = lang || 'hi-IN';
+        function speakText(text, callback) {
             if (!window.speechSynthesis || !text) { if (callback) callback(); return; }
             window.speechSynthesis.cancel();
             var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang;
-            utterance.rate = (lang.indexOf('en') === 0) ? 0.92 : 0.86;
+            utterance.lang = 'hi-IN';
+            utterance.rate = 0.85;
             utterance.pitch = 1;
-
-            var voice = getVoiceForLang(lang);
-            if (voice) utterance.voice = voice;
-
+            if (selectedVoice) utterance.voice = selectedVoice;
             utterance.onend = function() { if (callback) callback(); };
             utterance.onerror = function() { if (callback) callback(); };
             window.speechSynthesis.speak(utterance);
         }
 
-        function speakTriplet(hindi, kurukh, english, element) {
+        function speakHindiThenKurukh(hindi, kurukh, element) {
             var statusDiv = document.getElementById('speechStatus');
-            var engText = english || '';
-            if (!engText && element && element.dataset && element.dataset.eng) engText = element.dataset.eng;
-            if (!engText) engText = getEnglishText(kurukh) || getEnglishText(hindi) || '';
-
-            var hindiText = (hindi || '').trim();
-            var kurukhText = (kurukh || '').trim();
-            engText = (engText || '').trim();
-
-            var parts = [];
-            if (hindiText) parts.push({ text: hindiText, lang: 'hi-IN', label: 'हिंदी' });
-            if (kurukhText) parts.push({ text: kurukhText, lang: 'hi-IN', label: 'कुड़ुख' });
-            if (engText) parts.push({ text: engText, lang: 'en-US', label: 'English' });
-
-            if (parts.length === 0) return;
-
-            var idx = 0;
-            function playNext() {
-                if (idx >= parts.length) {
+            statusDiv.style.display = 'block';
+            statusDiv.innerText = '🔊 हिंदी: ' + hindi.substring(0, 20);
+            speakText(hindi, function() {
+                statusDiv.innerText = '🔊 कुड़ुख: ' + kurukh.substring(0, 20);
+                speakText(kurukh, function() {
                     statusDiv.style.display = 'none';
-                    return;
-                }
-                var part = parts[idx++];
-                statusDiv.style.display = 'block';
-                statusDiv.innerText = '🔊 ' + part.label + ': ' + part.text.substring(0, 22);
-                speakText(part.text, playNext, part.lang);
-            }
-
-            playNext();
+                });
+            });
         }
 
-        function speakHindiThenKurukh(hindi, kurukh, englishOrElement, maybeElement) {
-            var english = '';
-            var element = null;
-
-            if (englishOrElement && typeof englishOrElement === 'object' && !maybeElement) {
-                element = englishOrElement;
-            } else {
-                english = englishOrElement || '';
-                element = maybeElement || null;
-            }
-
-            speakTriplet(hindi, kurukh, english, element);
-        }
-
-        function speakOnlyKurukh(kurukh, element) {
-            speakTriplet(kurukh, kurukh, '', element || null);
+        function speakOnlyKurukh(kurukh) {
+            var statusDiv = document.getElementById('speechStatus');
+            statusDiv.style.display = 'block';
+            statusDiv.innerText = '🔊 कुड़ुख: ' + kurukh.substring(0, 20);
+            speakText(kurukh, function() {
+                statusDiv.style.display = 'none';
+            });
         }
 
         // ============================================================================
@@ -4274,6 +4182,7 @@ var dayData = {
                 APP_STATE.user = null;
                 APP_STATE.hasPurchased = false;
                 APP_STATE.completedLessons = [];
+                stopPurchaseWatcher();
                 saveState();
                 updateBadge();
                 loadPage('home');
@@ -4323,7 +4232,29 @@ var dayData = {
             document.getElementById('mainContent').innerHTML = html;
         }
 
-        var otpTimer = null;
+
+var otpTimer = null;
+var purchaseWatchTimer = null;
+
+function stopPurchaseWatcher() {
+    if (purchaseWatchTimer) {
+        clearInterval(purchaseWatchTimer);
+        purchaseWatchTimer = null;
+    }
+}
+
+function startPurchaseWatcher() {
+    stopPurchaseWatcher();
+    if (APP_STATE.isLoggedIn && APP_STATE.user && !APP_STATE.hasPurchased) {
+        purchaseWatchTimer = setInterval(function() {
+            if (!APP_STATE.isLoggedIn || !APP_STATE.user || APP_STATE.hasPurchased) {
+                stopPurchaseWatcher();
+                return;
+            }
+            checkPurchaseStatus(APP_STATE.user.mobile, true);
+        }, 3500);
+    }
+}
 
         async function saveUserToFirebase(mobile, name, address) {
             try {
@@ -4384,7 +4315,7 @@ var dayData = {
                 saveState();
                 updateBadge();
                 await saveUserToFirebase(APP_STATE.user.mobile, APP_STATE.user.name, APP_STATE.user.address);
-                await checkPurchaseStatus(APP_STATE.user.mobile);
+                await checkPurchaseStatus(APP_STATE.user.mobile, true);
                 if (otpTimer) clearInterval(otpTimer);
                 alert('✅ Login Successful! Welcome ' + APP_STATE.user.name);
                 loadPage('home');
@@ -4422,79 +4353,95 @@ var dayData = {
         //  FIREBASE CHECK
         // ============================================================================
 
-        window.checkPurchaseStatus = async function(mobile) {
-            try {
-                const ref = doc(db, "users", mobile);
-                const snap = await getDoc(ref);
-                if (snap.exists()) {
-                    const data = snap.data();
-                    console.log("✅ User data found:", data);
-                    if (data.approved === true) {
-                        APP_STATE.hasPurchased = true;
-                        saveState();
-                        showToast('✅ Course unlocked! 🎉', 3000);
-                        renderCoursePage();
-                        return true;
-                    } else {
-                        APP_STATE.hasPurchased = false;
-                        saveState();
-                        showToast('⏳ Payment pending. Please wait for approval.', 3000);
-                        renderCoursePage();
-                        return false;
-                    }
-                } else {
-                    console.log("❌ User not found in Firebase:", mobile);
-                    try {
-                        await setDoc(doc(db, "users", mobile), {
-                            name: APP_STATE.user ? APP_STATE.user.name : "Unknown",
-                            mobile: mobile,
-                            address: APP_STATE.user ? APP_STATE.user.address : "",
-                            approved: false,
-                            createdAt: new Date().toISOString()
-                        });
-                        console.log("✅ User created in Firebase");
-                        showToast('📝 User registered. Wait for approval.', 2500);
-                    } catch (err) {
-                        console.error("Error creating user:", err);
-                    }
-                    APP_STATE.hasPurchased = false;
-                    saveState();
-                    renderCoursePage();
-                    return false;
-                }
-            } catch (err) {
-                console.log("❌ Check purchase status error:", err);
-                return false;
-            }
-        };
 
-        function forceCheckPurchase() {
-            if (APP_STATE.isLoggedIn && APP_STATE.user) {
-                showToast('🔄 Checking payment status...', 2000);
-                checkPurchaseStatus(APP_STATE.user.mobile);
-            } else {
-                showToast('⚠️ Please login first', 2000);
-            }
-        }
+window.checkPurchaseStatus = async function(mobile, silent) {
+    try {
+        var quiet = !!silent;
+        const ref = doc(db, "users", mobile);
+        const snap = await getDoc(ref);
 
-        function adminUnlock(mobile) {
-            if (!mobile) {
-                mobile = prompt("Enter user's mobile number to unlock:");
-            }
-            if (mobile && mobile.trim() !== "") {
+        if (snap.exists()) {
+            const data = snap.data();
+            console.log("✅ User data found:", data);
+
+            if (data.approved === true) {
+                var wasPurchased = APP_STATE.hasPurchased;
                 APP_STATE.hasPurchased = true;
                 saveState();
-                showToast('✅ Course unlocked for ' + mobile, 3000);
-                if (APP_STATE.user && APP_STATE.user.mobile === mobile.trim()) {
-                    renderCoursePage();
-                } else {
-                    loadPage('course');
-                }
-            }
-        }
-        window.adminUnlock = adminUnlock;
+                stopPurchaseWatcher();
 
-        // ============================================================================
+                if (!quiet || !wasPurchased) {
+                    showToast('✅ Course unlocked! 🎉', 3000);
+                }
+
+                renderCoursePage();
+                return true;
+            } else {
+                var hadAccess = APP_STATE.hasPurchased;
+                APP_STATE.hasPurchased = false;
+                saveState();
+
+                if (!quiet && hadAccess) {
+                    showToast('⏳ Payment pending. Please wait for approval.', 3000);
+                }
+
+                return false;
+            }
+        } else {
+            console.log("❌ User not found in Firebase:", mobile);
+            try {
+                await setDoc(doc(db, "users", mobile), {
+                    name: APP_STATE.user ? APP_STATE.user.name : "Unknown",
+                    mobile: mobile,
+                    address: APP_STATE.user ? APP_STATE.user.address : "",
+                    approved: false,
+                    createdAt: new Date().toISOString()
+                });
+                console.log("✅ User created in Firebase");
+                if (!quiet) {
+                    showToast('📝 User registered. Wait for approval.', 2500);
+                }
+            } catch (err) {
+                console.error("Error creating user:", err);
+            }
+            APP_STATE.hasPurchased = false;
+            saveState();
+            return false;
+        }
+    } catch (err) {
+        console.log("❌ Check purchase status error:", err);
+        return false;
+    }
+};
+
+
+function forceCheckPurchase() {
+    if (APP_STATE.isLoggedIn && APP_STATE.user) {
+        showToast('🔄 Checking payment status...', 2000);
+        checkPurchaseStatus(APP_STATE.user.mobile, false);
+    } else {
+        showToast('⚠️ Please login first', 2000);
+    }
+}
+
+function adminUnlock(mobile) {
+    if (!mobile) {
+        mobile = prompt("Enter user's mobile number to unlock:");
+    }
+    if (mobile && mobile.trim() !== "") {
+        APP_STATE.hasPurchased = true;
+        saveState();
+        stopPurchaseWatcher();
+        showToast('✅ Course unlocked for ' + mobile, 3000);
+        if (APP_STATE.user && APP_STATE.user.mobile === mobile.trim()) {
+            renderCoursePage();
+        } else {
+            loadPage('course');
+        }
+    }
+}
+window.adminUnlock = adminUnlock;
+// ============================================================================
         //  HOME PAGE
         // ============================================================================
 
@@ -4528,7 +4475,7 @@ var dayData = {
                 <div class="numbers-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">`;
 
             for (var i = 1; i <= 10; i++) {
-                html += `<div class="num-item" data-eng="${englishNumbers[i]}" onclick="speakHindiThenKurukh('${hindiNum[i]}','${numbers[i]}', this)">
+                html += `<div class="num-item" onclick="speakHindiThenKurukh('${hindiNum[i]}','${numbers[i]}', this)">
                     <div class="num-hin">${hindiNum[i]}</div>
                     <div class="num-kur">${numbers[i]}</div>
                 </div>`;
@@ -4550,11 +4497,11 @@ var dayData = {
 
             for (var i = 0; i < proverbs.length; i++) {
                 var p = proverbs[i];
-                html += `<div class="proverb-card" id="proverb-more-${i}" data-eng="${escapeHtml(p.eng)}" style="background:#f8f9fa;color:#1a472a;border:1px solid #e8eaed;">
+                html += `<div class="proverb-card" style="background:#f8f9fa;color:#1a472a;border:1px solid #e8eaed;">
                     <div class="proverb-text" style="color:#1a472a;">${p.kur}</div>
                     <div class="proverb-meaning" style="color:#555;">${p.hin}</div>
                     <div style="font-size:0.6rem;color:#999;">${p.eng}</div>
-                    <button class="btn-featured" style="margin-top:6px;background:var(--gold-light);border:none;padding:4px 16px;border-radius:30px;cursor:pointer;" onclick="speakHindiThenKurukh('${p.hin}','${p.kur}','${p.eng}', document.getElementById('proverb-more-${i}'))">🔊 सुनें</button>
+                    <button class="btn-featured" style="margin-top:6px;background:var(--gold-light);border:none;padding:4px 16px;border-radius:30px;cursor:pointer;" onclick="speakOnlyKurukh('${p.kur}')">🔊 सुनें</button>
                 </div>`;
             }
 
@@ -4573,7 +4520,7 @@ var dayData = {
                 </div>`;
             for (var i = 0; i < cat.words.length; i++) {
                 var w = cat.words[i];
-                html += `<div class="word-item" id="cat-${i}" data-eng="${escapeHtml(getEnglishText(w.full || w.eng || w.kur || w.hin))}">
+                html += `<div class="word-item" id="cat-${i}">
                     <div class="word-left">
                         <div class="word-hin">${w.hin}</div>
                         <div class="word-kur">${w.full}</div>
@@ -4600,7 +4547,7 @@ var dayData = {
             var html = `<div class="page-title">💬 All Phrases (${allWords.length})</div>`;
             for (var i = 0; i < allWords.length; i++) {
                 var w = allWords[i];
-                html += `<div class="word-item" id="phrase-${i}" data-eng="${escapeHtml(getEnglishText(w.full || w.eng || w.kur || w.hin))}">
+                html += `<div class="word-item" id="phrase-${i}">
                     <div class="word-left">
                         <div class="word-hin">${w.hin}</div>
                         <div class="word-kur">${w.full}</div>
@@ -4637,7 +4584,7 @@ var dayData = {
             var total = flashcardWords.length;
             var html = `
                 <div class="page-title">🃏 Flashcards (${total})</div>
-                <div class="flashcard" id="flashcard" data-eng="${escapeHtml(getEnglishText(w.full || w.eng || w.kur || w.hin))}" onclick="flipFlashcard()" style="background:var(--card);border-radius:var(--radius);padding:2rem 1rem;text-align:center;box-shadow:var(--shadow);min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:2px solid #e8eaed;cursor:pointer;">
+                <div class="flashcard" id="flashcard" onclick="flipFlashcard()" style="background:var(--card);border-radius:var(--radius);padding:2rem 1rem;text-align:center;box-shadow:var(--shadow);min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:2px solid #e8eaed;cursor:pointer;">
                     <div class="front" id="flashcardFront" style="font-size:1.8rem;font-weight:700;color:var(--primary);">${w.hin}</div>
                     <div class="back" id="flashcardBack" style="font-size:1.4rem;color:var(--primary-light);display:none;">${w.full}</div>
                     <div class="hint" style="font-size:0.7rem;color:var(--text-light);margin-top:10px;">👆 Click to flip</div>
@@ -4697,7 +4644,7 @@ var dayData = {
                 <div class="numbers-grid" style="grid-template-columns:repeat(2,1fr);">`;
             for (var i = 0; i < colours.length; i++) {
                 var c = colours[i];
-                html += `<div class="num-item" data-eng="${c.eng}" onclick="speakHindiThenKurukh('${c.hin}','${c.kur}', this)">
+                html += `<div class="num-item" onclick="speakHindiThenKurukh('${c.hin}','${c.kur}', this)">
                     <div style="font-size:1.2rem;">🎨</div>
                     <div class="num-hin">${c.hin}</div>
                     <div class="num-kur">${c.kur}</div>
@@ -4717,17 +4664,17 @@ var dayData = {
                 <div class="page-title" style="margin-top:0.5rem;">🏺 Oraon Gotras</div>
                 <div class="gotra-grid">`;
             for (var i = 0; i < gotras.length; i++) {
-                html += `<div class="gotra-item" data-eng="${gotras[i]}" onclick="speakOnlyKurukh('${gotras[i]}', this)">${gotras[i]}<br><span style="font-size:0.5rem;opacity:0.6;">🔊 सुनें</span></div>`;
+                html += `<div class="gotra-item" onclick="speakOnlyKurukh('${gotras[i]}')">${gotras[i]}<br><span style="font-size:0.5rem;opacity:0.6;">🔊 सुनें</span></div>`;
             }
             html += `</div>
                 <div class="page-title" style="margin-top:1rem;">💬 All Proverbs</div>`;
             for (var i = 0; i < proverbs.length; i++) {
                 var p = proverbs[i];
-                html += `<div class="proverb-card" id="proverb-${i}" data-eng="${escapeHtml(p.eng)}" style="background:#f8f9fa;color:#1a472a;border:1px solid #e8eaed;">
+                html += `<div class="proverb-card" style="background:#f8f9fa;color:#1a472a;border:1px solid #e8eaed;">
                     <div class="proverb-text" style="color:#1a472a;">${p.kur}</div>
                     <div class="proverb-meaning" style="color:#555;">${p.hin}</div>
                     <div style="font-size:0.6rem;color:#999;">${p.eng}</div>
-                    <button class="btn-featured" style="margin-top:6px;background:var(--gold-light);border:none;padding:4px 16px;border-radius:30px;cursor:pointer;" onclick="speakHindiThenKurukh('${p.hin}','${p.kur}','${p.eng}', document.getElementById('proverb-${i}'))">🔊 सुनें</button>
+                    <button class="btn-featured" style="margin-top:6px;background:var(--gold-light);border:none;padding:4px 16px;border-radius:30px;cursor:pointer;" onclick="speakOnlyKurukh('${p.kur}')">🔊 सुनें</button>
                 </div>`;
             }
             html += `
@@ -4751,9 +4698,6 @@ var dayData = {
                 return;
             }
 
-            if (APP_STATE.user && !APP_STATE.hasPurchased) {
-                checkPurchaseStatus(APP_STATE.user.mobile);
-            }
 var totalDays = Object.keys(COURSE_DATA.days).length;
             var done = APP_STATE.completedLessons.length;
             var progress = totalDays ? Math.round((done / totalDays) * 100) : 0;
@@ -4842,6 +4786,12 @@ var totalDays = Object.keys(COURSE_DATA.days).length;
             }
 
             document.getElementById('mainContent').innerHTML = html;
+            if (APP_STATE.hasPurchased) {
+                stopPurchaseWatcher();
+            } else if (APP_STATE.isLoggedIn && APP_STATE.user) {
+                startPurchaseWatcher();
+                checkPurchaseStatus(APP_STATE.user.mobile, true);
+            }
         }
 
         // ============================================================================
@@ -4956,7 +4906,7 @@ var totalDays = Object.keys(COURSE_DATA.days).length;
                     var hinText = w.hin || w.eng || 'Word ' + (i + 1);
                     var kurText = w.full || w.kur || '';
                     html += `
-                        <div class="word-item" id="lesson-word-${i}" data-eng="${escapeHtml(getEnglishText(w.full || w.eng || kurText || hinText))}">
+                        <div class="word-item" id="lesson-word-${i}">
                             <div class="word-left">
                                 <h4>${hinText}</h4>
                                 <p style="font-size:0.9rem;color:var(--primary-light);">${kurText}</p>
