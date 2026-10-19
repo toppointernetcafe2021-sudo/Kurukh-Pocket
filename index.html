@@ -1604,6 +1604,147 @@
     .voice-bar {background:#e9f4ed; margin:8px 10px; padding:9px 7px; border:1px solid #d1e6d7; border-radius:12px;}
     .voice-bar select {font-size:.7rem; padding:6px 5px; border:1px solid #bfd5c5; max-width:100%;}
     .voice-bar .test-btn {font-size:.7rem; padding:6px 12px;}
+
+/* ===== KURUKH BANNA LIPI: FREE STANDALONE HOME CATEGORY ===== */
+@font-face{
+  font-family:"PK-KurukhBanna";
+  src:url("https://raw.githubusercontent.com/toppointernetcafe2021-sudo/KuruxBannaLearn/main/kurukh.ttf") format("truetype");
+  font-style:normal;font-weight:400;font-display:swap;
+}
+.banna-top{background:linear-gradient(145deg,#124b34,#246b50);color:white;padding:18px;border-radius:17px;margin-bottom:14px}
+.banna-top h2{font-size:1.18rem;margin:5px 0 6px}
+.banna-top p{font-size:.74rem;line-height:1.65;color:#e4fff1}
+.banna-free{display:inline-flex;align-items:center;border:1px solid #b5e9cf;background:#eaf8ef;color:#17613e;border-radius:20px;padding:4px 10px;font-size:.65rem;font-weight:800;margin:0 0 12px}
+.banna-tabs{display:flex;gap:8px;margin:14px 0}
+.banna-tabs button{flex:1;border:1px solid #c8e3d4;border-radius:12px;background:white;color:#175039;padding:11px 5px;font-size:.75rem;font-weight:700;cursor:pointer}
+.banna-tabs button.active{background:#1a472a;color:white;border-color:#1a472a}
+.banna-preview{background:#fff;border:1px solid #cfe7da;border-radius:16px;padding:17px;text-align:center;box-shadow:var(--shadow);margin-bottom:13px}
+.banna-preview .banna-large{font-family:"PK-KurukhBanna",sans-serif;font-weight:400;font-size:80px;line-height:1.25;color:#194c36;min-height:96px;overflow-wrap:anywhere}
+.banna-preview .banna-hi{font-size:1.3rem;font-weight:800}
+.banna-preview .banna-roman{color:#64748b;font-size:.78rem;margin:4px 0 11px}
+.banna-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+.banna-letter{background:#fff;border:1px solid #e0eae5;border-radius:12px;padding:9px 3px;min-height:82px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;box-shadow:var(--shadow)}
+.banna-letter.active{background:#eff9f2;border-color:#d4a743;box-shadow:0 0 0 2px #f2d77b}
+.banna-letter .symbol{font-family:"PK-KurukhBanna",sans-serif;font-weight:400;font-size:30px;line-height:1.25;color:#194c36}
+.banna-letter .hindi{font-size:.73rem;font-weight:800;color:#253c31}
+.banna-letter .roman{font-size:.57rem;color:#667b70}
+.banna-note{font-size:.72rem;line-height:1.7;color:#52665a;margin:12px 0}
+.banna-card-home{border:2px solid #b7dfc4!important;background:linear-gradient(145deg,#ebf9f0,#ffffff)!important}
+.banna-card-home .dc-tag{background:#d7f4e4;color:#12603c}
+@media(max-width:370px){.banna-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ===== Kurukh Banna: creator-provided Normal/Tirkey and Cursive/Kujur faces ===== */
+@font-face{font-family:"PK-Banna-Normal";src:url("./KURUKH%20%20BANNA%20_Tirkey.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"PK-Banna-Cursive";src:url("./KURUKH%20%20BANNA%20_Kujur%281%29.otf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+.pk-banna-layout{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.pk-banna-style{min-width:0;text-align:center;background:#f6faf6;border:1px solid #d9e9dc;border-radius:14px;padding:14px 7px;overflow:hidden}
+.pk-banna-style strong{display:block;font-size:.70rem;color:#466455;margin-bottom:8px}
+.pk-banna-glyph{font-size:65px;line-height:1.35;min-height:90px;display:block;color:#164d36;overflow-wrap:anywhere;font-weight:400}
+.pk-banna-glyph.normal,.pk-banna-mini.normal{font-family:'PK-Banna-Normal',sans-serif!important}
+.pk-banna-glyph.cursive,.pk-banna-mini.cursive{font-family:'PK-Banna-Cursive',sans-serif!important}
+.pk-banna-tabbar{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.pk-banna-tabbar button{border:1px solid #cbded2;border-radius:18px;padding:8px 10px;background:#fff;color:#245638;font-weight:650;font-size:.72rem;cursor:pointer;flex:1}
+.pk-banna-tabbar button.active{background:#1a472a;border-color:#1a472a;color:#fff}
+.pk-banna-info{font-size:.72rem;color:#607064;line-height:1.6;margin:7px 0 11px}
+.pk-banna-notice{background:#fff9e6;border:1px solid #efddaf;border-radius:11px;padding:10px 12px;color:#715819;font-size:.71rem;line-height:1.6;margin:11px 0}
+.pk-banna-choice{background:#fff;border:1px solid #e2eae5;border-radius:13px;padding:10px 3px;min-height:115px;display:flex;align-items:center;justify-content:center;gap:3px;flex-direction:column;cursor:pointer;min-width:0}
+.pk-banna-choice.active{border:2px solid #bd8f2f;background:#fff9e6}
+.pk-banna-choice .hindi{font-size:.81rem;font-weight:750;line-height:1.4;color:#203b2c}
+.pk-banna-mini{font-size:34px;line-height:1.3;min-height:35px;display:block;color:#206143;font-weight:400}
+.pk-banna-choice .code{font-family:monospace;font-size:.58rem;color:#64748b}
+.pk-banna-letters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:12px 0}
+.pk-banna-letters.dual .pk-banna-mini{font-size:26px;min-height:29px}
+.pk-banna-detail{background:#fff;border:1px solid #d8e7dc;border-radius:16px;padding:15px;margin:12px 0}
+.pk-banna-detail h4{font-size:1.05rem;color:#193e2c;margin-bottom:3px}
+.pk-banna-actions{display:flex;gap:9px;margin:12px 0;flex-wrap:wrap}
+.pk-banna-actions button{flex:1;min-width:120px;font-size:.76rem}
+.pk-banna-link{width:100%;border:1px solid #b5d6bc;color:#145734;border-radius:12px;padding:12px;font-size:.76rem;font-weight:750;background:#e9f7ed;cursor:pointer;margin-top:12px}
+.pk-banna-compose{background:#fff;border:1px solid #cfe3d4;border-radius:16px;padding:15px;margin:14px 0}
+.pk-banna-compose label{display:block;font-size:.72rem;font-weight:700;color:#385845;margin:10px 0 5px}
+.pk-banna-compose select{width:100%;padding:10px;border:1px solid #cfe3d4;border-radius:10px;background:#f7faf8;color:#133a27}
+.pk-banna-matra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.pk-banna-matra-item{border:1px solid #dfe8df;border-radius:12px;padding:11px 8px;text-align:center;background:#fff;cursor:pointer}
+.pk-banna-matra-item.active{border:2px solid #d4a743;background:#fffaf0}
+.pk-banna-matra-item .name{font-size:.76rem;font-weight:750;color:#204a32;line-height:1.3;display:block}
+.pk-banna-matra-item .keys{font-size:.64rem;color:#5f7367;display:block;margin-top:5px;font-family:monospace}
+.pk-banna-font-status{margin-top:10px;font-size:.70rem;color:#64748b;line-height:1.5}
+@media(max-width:390px){.pk-banna-glyph{font-size:53px}.pk-banna-mini{font-size:28px}.pk-banna-letters{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ===== Kurukh Banna learning pages — forest-green + terracotta + gold ===== */
+.pkb-back{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.pkb-back .back-btn{height:34px;width:34px;flex:none;border-radius:10px;background:#ebf4eb;color:#1b5137;display:grid;place-items:center}
+.pkb-back h3{font-size:.95rem;color:#234b36;font-weight:800}
+.pkb-hero{position:relative;overflow:hidden;background:linear-gradient(128deg,#103b2b 0%,#1a684a 67%,#2c7b57 100%);border-radius:20px;padding:19px 17px;margin:0 0 13px;color:white;box-shadow:0 8px 22px rgba(20,69,48,.16)}
+.pkb-hero:before,.pkb-hero:after{content:"";position:absolute;pointer-events:none;border:2px solid rgba(255,218,138,.23);border-radius:50%;width:170px;height:170px;right:-47px;top:-75px}
+.pkb-hero:after{width:125px;height:125px;top:-52px;right:-26px;border-color:rgba(255,218,138,.16)}
+.pkb-hero .pkb-kicker{letter-spacing:1.15px;font-size:.60rem;color:#fae8b4;font-weight:800;position:relative;z-index:1}
+.pkb-hero h2{font-size:1.24rem;line-height:1.35;margin:8px 0 5px;position:relative;z-index:1}
+.pkb-hero p{font-size:.72rem;line-height:1.6;color:#e1f5e9;max-width:235px;position:relative;z-index:1}
+.pkb-hero-mark{position:absolute;right:14px;bottom:15px;width:83px;height:83px;border-radius:19px;transform:rotate(5deg);background:rgba(255,255,255,.11);border:1px solid rgba(255,242,201,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.pkb-hero-mark .normal{font-family:'PK-Banna-Normal',sans-serif!important;font-size:37px;font-weight:400;line-height:1;color:#fff3cd;transform:rotate(-5deg)}
+.pkb-hero-mark .cursive{font-family:'PK-Banna-Cursive',sans-serif!important;font-size:27px;font-weight:400;line-height:1;color:#fff3cd;transform:rotate(-5deg)}
+.pkb-guide{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pkb-guide span{border:1px solid #dfe9e0;background:white;color:#385744;border-radius:20px;padding:6px 9px;font-size:.64rem;font-weight:700}
+.pkb-guide .pkb-free{background:#e1f4e6;color:#1e6740;border-color:#c9e5d1}
+.pkb-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 9px}
+.pkb-heading strong{font-size:.86rem;color:#1e5237}
+.pkb-heading small{font-size:.62rem;color:#7b6b55}
+.pkb-segment{display:flex;gap:7px;margin:11px 0 5px}
+.pkb-segment button{flex:1;min-width:0;border:1px solid #d1e5d6;background:#fff;border-radius:12px;padding:10px 7px;color:#315d42;font-size:.76rem;font-weight:800;cursor:pointer}
+.pkb-segment button.active{color:#fff;background:#1a5a3d;border-color:#1a5a3d;box-shadow:0 3px 10px rgba(26,90,61,.17)}
+.pkb-subhead{font-size:.68rem;color:#65766a;margin:8px 0 4px;line-height:1.4}
+.pkb-selection{border-radius:18px;padding:15px;background:linear-gradient(150deg,#ffffff,#f6fbf7);border:1px solid #cee2d3;box-shadow:0 3px 15px rgba(26,77,52,.06);margin:12px 0 17px;overflow:hidden}
+.pkb-selected-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.pkb-selected-title .pkb-selected-hi{font-size:1.35rem;font-weight:850;color:#1d5437}
+.pkb-selected-title .pkb-key{font-size:.66rem;font-weight:750;border-radius:7px;background:#ecf0eb;color:#365d48;padding:5px 8px;font-family:ui-monospace,monospace}
+.pkb-selected-hint{font-size:.69rem;color:#657d6e;line-height:1.55}
+.pkb-hindi-under{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:5px}
+.pkb-hindi-under span{font-size:.60rem;color:#668070}
+.pkb-hindi-under strong{font-size:1.15rem;color:#245a3d}
+.pkb-type-row{display:flex;align-items:center;justify-content:center;width:100%;gap:7px}
+.pkb-type-item{display:flex;min-width:0;flex:1;align-items:center;flex-direction:column;justify-content:center;gap:2px}
+.pkb-type-item small{font-family:var(--font);font-size:.52rem;letter-spacing:.2px;color:#8d775f;font-weight:750;line-height:1.25}
+.pkb-divider{height:31px;width:1px;background:#d7e2d8;flex:none}
+.pkb-selected-preview .pk-banna-style{background:#f7faf5;border:1px solid #dfebe1;border-radius:14px;padding:11px 5px}
+.pkb-selected-preview .pk-banna-style strong{color:#684b32;font-size:.72rem}
+.pkb-selected-preview .pk-banna-glyph{font-size:66px;min-height:88px;color:#154b33;line-height:1.3}
+.pkb-selected-preview>.pk-banna-glyph{display:block;text-align:center;font-size:76px;min-height:103px}
+.pkb-selected-preview .pk-banna-layout{margin:12px 0 6px}
+.pkb-selection .pk-banna-actions{margin:14px 0 0}
+.pkb-selection .pk-banna-actions button{border-radius:12px;padding:11px 8px}
+.pkb-selection .pk-banna-actions .btn-outline{border:1px solid #cfded1;background:#fff;color:#1e5a3c}
+.pkb-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 14px}
+.pkb-gallery .pk-banna-choice{border-radius:13px;border:1px solid #dfe9df;padding:11px 4px;min-height:115px;background:#fff;gap:5px;box-shadow:none}
+.pkb-gallery .pk-banna-choice.active{border:2px solid #bd653f;background:#fff7ed;box-shadow:0 2px 8px rgba(160,83,48,.09)}
+.pkb-gallery .pk-banna-choice .hindi{font-size:.98rem;font-weight:800;color:#234632}
+.pkb-gallery .pk-banna-choice .code{font-size:.58rem;border-radius:6px;background:#f1f4f0;padding:3px 7px;color:#64766b}
+.pkb-gallery .pk-banna-mini{font-size:36px;line-height:1.28;min-height:40px;white-space:nowrap}
+.pkb-gallery .pkb-type-row .pk-banna-mini{font-size:29px;min-height:34px}
+.pkb-gallery .pk-banna-choice:focus-visible,.pkb-matra-choice:focus-visible{outline:3px solid #df9f58;outline-offset:2px}
+.pkb-link{width:100%;border:1px solid #d8b887;border-radius:13px;background:#fff4df;color:#6b4429;padding:13px 11px;font-weight:800;font-size:.78rem;cursor:pointer}
+.pkb-footnote{font-size:.69rem;line-height:1.65;color:#637365;border-left:3px solid #c17a51;padding:8px 11px;background:#f5f8f3;border-radius:0 8px 8px 0;margin:13px 0}
+.pkb-section-title{font-size:.92rem;color:#1e5437;margin:14px 0 7px}
+.pkb-compose{margin:10px 0 15px;padding:15px;border:1px solid #cfe2d4;border-radius:17px;background:#fff}
+.pkb-compose label{font-size:.72rem;font-weight:800;color:#345e43;display:block;margin-bottom:7px}
+.pkb-compose select{display:block;width:100%;padding:11px;border:1px solid #c7dfcf;border-radius:10px;background:#f7fbf8;color:#214f34;font-size:.88rem;margin-bottom:9px}
+.pkb-compose .pkb-selected-preview{text-align:center;margin:8px 0}
+.pkb-compose .pkb-selected-preview .pk-banna-layout{margin:10px 0}
+.pkb-compose .pkb-selected-hi{font-size:1.17rem;font-weight:800;text-align:center;color:#244f39}
+.pkb-compose .pkb-key{text-align:center;font-family:ui-monospace,monospace;color:#6a7a6d;font-size:.7rem;margin:7px 0 12px}
+.pkb-compose .btn{border-radius:12px}
+.pkb-matra-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0 14px}
+.pkb-matra-choice{background:#fff;border:1px solid #dfe9df;border-radius:13px;min-width:0;padding:12px 6px;cursor:pointer;min-height:125px}
+.pkb-matra-choice.active{background:#fff8ee;border:2px solid #b9754c}
+.pkb-matra-choice .name{color:#214b34;font-weight:800;font-size:.81rem;display:block}
+.pkb-matra-choice .caption{color:#6e8071;font-size:.61rem;line-height:1.4;display:block;margin:4px 0}
+.pkb-matra-choice .pk-banna-mini{font-size:37px;line-height:1.25;min-height:43px;color:#1e6542}
+.pkb-matra-choice .pkb-type-row .pk-banna-mini{font-size:33px}
+.pkb-matra-choice .keys{font-family:ui-monospace,monospace;font-size:.64rem;color:#806a4d;display:block;margin-top:3px}
+.pkb-matra-choice .pkb-special-hi{font-size:.67rem;color:#657968;display:block;line-height:1.45;margin:5px 0}
+.pkb-footstatus{border-radius:10px;background:#eff5ed;color:#48624e;padding:10px;font-size:.67rem;margin-top:12px}
+@media(min-width:470px){.pkb-gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:350px){.pkb-gallery .pkb-type-row .pk-banna-mini{font-size:24px}.pkb-hero p{max-width:195px}.pkb-hero-mark{width:70px;height:70px;right:8px}}
+
   </style>
 </head>
 
@@ -1672,8 +1813,6 @@
         <option value="0.90">Clear 0.90×</option>
         <option value="1.00">Normal 1.00×</option>
       </select>
-      <button class="test-btn" onclick="speakText('हे', null)" aria-label="Test pronunciation of हे">🔊 हे</button>
-      <button class="test-btn" onclick="speakText('हो', null)" aria-label="Test pronunciation of हो">🔊 हो</button>
     </div>
 
     <!-- MAIN CONTENT -->
@@ -4002,7 +4141,7 @@ async function pkStartGoogleLogin(){
                     </div>
                 </div>
 
-                <div class="page-title">✨ Explore Kurukh • Free Lesson Previews</div>
+                <div class="page-title">📚 Learn Kurukh • Categories</div>
                 <div class="discover-grid" id="discoverGrid">${pkDiscoverCards()}</div>
                 <div class="course-card" style="background:#f0f8f1;border-color:#d7e9dc;text-align:center">
                    <strong style="font-size:.88rem;color:var(--primary)">🎯 First try the free daily quiz</strong>
@@ -4066,7 +4205,159 @@ async function pkStartGoogleLogin(){
             {id:'travel',icon:'🚌',title:'Travel & Directions',days:[9,20,24]},
             {id:'culture',icon:'🥁',title:'Culture & Community',days:[14,17,57]}
         ];
-        function pkDiscoverCards(){return PK_DISCOVER.map(function(c){return '<button class="discover-card" onclick="pkOpenDiscover(\''+c.id+'\')"><span class="dc-icon">'+c.icon+'</span><strong>'+pkSafe(c.title)+'</strong><span class="dc-tag">27 words / sentences →</span></button>';}).join('');}
+        function pkDiscoverCards(){return '<button class="discover-card banna-card-home" onclick="loadPage(\'banna-lipi\')"><span class="dc-icon">🔤</span><strong>Kurukh Banna Lipi</strong><span class="dc-tag">FREE • Normal & Cursive</span></button>'+'<button class="discover-card banna-card-home" onclick="loadPage(\'banna-matra\')"><span class="dc-icon">✨</span><strong>Kurukh Matra & Signs</strong><span class="dc-tag">FREE • Matra Practice</span></button>'+PK_DISCOVER.map(function(c){return '<button class="discover-card" onclick="pkOpenDiscover(\''+c.id+'\')"><span class="dc-icon">'+c.icon+'</span><strong>'+pkSafe(c.title)+'</strong><span class="dc-tag">27 words / sentences →</span></button>';}).join('');}
+
+// KURUKH BANNA LIPI — Free stand-alone learning category; not a paid course.
+// 51 letters copied from the creator's KuruxBannaLearn primary alphabet.
+var PK_BANNA_LETTERS = [{"hi":"अ","token":"A","roman":"a"},{"hi":"आ","token":"Aa","roman":"ā"},{"hi":"इ","token":"q","roman":"i"},{"hi":"ई","token":"Q","roman":"ī"},{"hi":"उ","token":"w","roman":"u"},{"hi":"ऊ","token":"W","roman":"ū"},{"hi":"ए","token":"V","roman":"e"},{"hi":"ऐ","token":"Y","roman":"ai"},{"hi":"ओ","token":"Ao","roman":"o"},{"hi":"औ","token":"AO","roman":"au"},{"hi":"क","token":"k","roman":"ka"},{"hi":"ख","token":"K","roman":"kha"},{"hi":"ग","token":"g","roman":"ga"},{"hi":"घ","token":"G","roman":"gha"},{"hi":"ङ","token":"<","roman":"ṅa"},{"hi":"च","token":"c","roman":"ca"},{"hi":"छ","token":"C","roman":"cha"},{"hi":"ज","token":"j","roman":"ja"},{"hi":"झ","token":"J","roman":"jha"},{"hi":"ञ","token":"^","roman":"ña"},{"hi":"ट","token":"t","roman":"ṭa"},{"hi":"ठ","token":"T","roman":"ṭha"},{"hi":"ड","token":"L","roman":"ḍa"},{"hi":"ढ","token":"X","roman":"ḍha"},{"hi":"ण","token":"F","roman":"ṇa"},{"hi":"त","token":"z","roman":"ta"},{"hi":"थ","token":"Z","roman":"tha"},{"hi":"द","token":"d","roman":"da"},{"hi":"ध","token":"D","roman":"dha"},{"hi":"न","token":"n","roman":"na"},{"hi":"प","token":"p","roman":"pa"},{"hi":"फ","token":"f","roman":"pha"},{"hi":"ब","token":"b","roman":"ba"},{"hi":"भ","token":"B","roman":"bha"},{"hi":"म","token":"m","roman":"ma"},{"hi":"य","token":"y","roman":"ya"},{"hi":"र","token":"r","roman":"ra"},{"hi":"ल","token":"l","roman":"la"},{"hi":"व","token":"v","roman":"wa"},{"hi":"श","token":"S","roman":"śa"},{"hi":"ष","token":"{","roman":"ṣa"},{"hi":"स","token":"s","roman":"sa"},{"hi":"ह","token":"h","roman":"ha"},{"hi":"क्ष","token":"H","roman":"kṣa"},{"hi":"त्र","token":"}","roman":"tra"},{"hi":"ज्ञ","token":">","roman":"jña"},{"hi":"ड़","token":"P","roman":"ṛa"},{"hi":"ढ़","token":"R","roman":"ṛha"},{"hi":"ख़","token":"x","roman":"xa"}];
+
+// Kurukh Banna Pathshala verified mapping, FREE & separate from all 60 paid course lessons.
+// Normal face: Tirkey; Cursive face: Kujur. Same ASCII keys, two font styles.
+var PK_BANNA_MATRAS = [
+ {hi:'क',sign:'',key:'',name:'बिना मात्रा'},
+ {hi:'का',sign:'ा',key:'a',name:'आ की मात्रा'},
+ {hi:'कि',sign:'ि',key:'i',pre:true,name:'इ की मात्रा'},
+ {hi:'की',sign:'ी',key:'I',name:'ई की मात्रा'},
+ {hi:'कु',sign:'ु',key:'u',name:'उ की मात्रा'},
+ {hi:'कू',sign:'ू',key:'U',name:'ऊ की मात्रा'},
+ {hi:'के',sign:'े',key:'e',name:'ए की मात्रा'},
+ {hi:'कै',sign:'ै',key:'E',name:'ऐ की मात्रा'},
+ {hi:'को',sign:'ो',key:'o',name:'ओ की मात्रा'},
+ {hi:'कौ',sign:'ौ',key:'O',name:'औ की मात्रा'}
+];
+var PK_BANNA_SIGNS = [
+ {name:'अनुस्वार',hi:'ं',key:'N',example:'कं',exampleKey:'kN'},
+ {name:'चन्द्रबिन्दु',hi:'ँ',key:'M',example:'कँ',exampleKey:'kM'},
+ {name:'सेला (Sela)',hi:'',key:'[',example:'क + Sela',exampleKey:'k['},
+ {name:'हेका (Hecka)',hi:'',key:']',example:'क + Hecka',exampleKey:'k]'},
+ {name:'हलन्त',hi:'्',key:'-',example:'क्',exampleKey:'k-'}
+];
+var pkBannaSection='vowels';
+var pkBannaSelected=0;
+var pkBannaStyle=localStorage.getItem('pk_banna_style')||'both';
+if(['both','normal','cursive'].indexOf(pkBannaStyle)===-1)pkBannaStyle='both';
+var pkBannaMatraIndex=0;
+var pkBannaBaseIndex=10;
+function pkBannaRows(token, mini, hindi){
+  var cls=mini?'pk-banna-mini':'pk-banna-glyph';
+  var val=pkSafe(token);
+  var hi=hindi?'<div class="pkb-hindi-under"><span>हिंदी</span><strong>'+pkSafe(hindi)+'</strong></div>':'';
+  if(pkBannaStyle==='normal')return '<span class="'+cls+' normal">'+val+'</span>'+(mini?'':hi);
+  if(pkBannaStyle==='cursive')return '<span class="'+cls+' cursive">'+val+'</span>'+(mini?'':hi);
+  if(mini)return '<span class="pkb-type-row"><span class="pkb-type-item"><span class="'+cls+' normal">'+val+'</span><small>Normal</small></span><span class="pkb-divider"></span><span class="pkb-type-item"><span class="'+cls+' cursive">'+val+'</span><small>Cursive</small></span></span>';
+  return '<div class="pk-banna-layout"><div class="pk-banna-style"><strong>Normal</strong><span class="'+cls+' normal">'+val+'</span>'+hi+'</div><div class="pk-banna-style"><strong>Cursive</strong><span class="'+cls+' cursive">'+val+'</span>'+hi+'</div></div>';
+}
+function pkBannaStyleTabs(){
+  var options=[['both','दोनों रूप'],['normal','Normal'],['cursive','Cursive']];
+  return '<div class="pkb-segment" role="group" aria-label="लिपि का Font चुनें">'+options.map(function(o){return '<button type="button" aria-pressed="'+(pkBannaStyle===o[0])+'" class="'+(pkBannaStyle===o[0]?'active':'')+'" onclick="pkBannaSetStyle(\''+o[0]+'\')">'+o[1]+'</button>';}).join('')+'</div>';
+}
+function pkBannaSetStyle(s){
+  if(['both','normal','cursive'].indexOf(s)===-1)return;
+  pkBannaStyle=s;localStorage.setItem('pk_banna_style',s);
+  if(_pkCurrentPage==='banna-matra')pkDrawBannaMatra();else pkDrawBannaLetters();
+}
+function pkBannaCheckFonts(){
+  var box=document.getElementById('pkBannaFontStatus');if(!box)return;
+  if(!document.fonts||!document.fonts.load){box.textContent='फ़ॉन्ट सपोर्ट उपलब्ध नहीं। दोनों Font Files GitHub में index.html के साथ जोड़ें।';return;}
+  Promise.allSettled([document.fonts.load('26px "PK-Banna-Normal"','Ak'),document.fonts.load('26px "PK-Banna-Cursive"','Ak')]).then(function(res){
+    var el=document.getElementById('pkBannaFontStatus');if(!el)return;
+    var n=res[0].status==='fulfilled'&&res[0].value.length>0;
+    var c=res[1].status==='fulfilled'&&res[1].value.length>0;
+    el.textContent=n&&c?'✓ Normal और Cursive दोनों Fonts लोड हैं।':
+      '⚠ '+(!n&&!c?'दोनों रूप':(!n?'Normal रूप':'Cursive रूप'))+' लोड नहीं हुआ। कृपया मूल Font फाइलें GitHub में index.html के साथ उसी फ़ोल्डर में रखें और फाइलनाम जाँचें।';
+  });
+}
+function pkBannaHeader(title){
+  return '<div class="pkb-back"><button type="button" class="back-btn" onclick="loadPage(\'home\')" aria-label="Home">←</button><h3>'+title+'</h3></div>';
+}
+function pkBannaHero(kind){
+  var letters=kind==='matra'?false:true;
+  return '<section class="pkb-hero"><span class="pkb-kicker">KURUKH PRIDE · FREE LEARNING</span><h2>'+(letters?'कुड़ुख बन्ना लिपि':'कुड़ुख मात्रा एवं चिह्न')+'</h2><p>'+(letters?'हिंदी अक्षर के साथ Normal और Cursive बन्ना लिपि पहचानें।':'हिंदी के साथ मात्रा बनाना सीखें, Normal और Cursive दोनों रूपों में।')+'</p><div class="pkb-hero-mark" aria-hidden="true"><span class="normal">A</span><span class="cursive">A</span></div></section>';
+}
+function pkRenderBannaLipi(){
+  var el=document.getElementById('mainContent');
+  el.innerHTML=pkBannaHeader('🔤 Kurukh Banna Lipi')+pkBannaHero('letters')+
+    '<div class="pkb-guide"><span class="pkb-free">✓ बिल्कुल Free</span><span>Normal</span><span>Cursive</span><span>हिंदी साथ में</span></div>'+
+    '<div class="pkb-heading"><strong>01 · अक्षर सीखें</strong><small>अक्षर चुनकर तुलना करें</small></div>'+
+    '<div class="banna-tabs"><button id="pkBannaVowelTab" onclick="pkSwitchBanna(\'vowels\')">स्वर · 10</button><button id="pkBannaConsonantTab" onclick="pkSwitchBanna(\'consonants\')">व्यंजन · 39</button></div>'+
+    '<div id="pkBannaStyleTabs"></div>'+
+    '<div id="pkBannaPreview" class="pkb-selection" aria-live="polite"></div>'+
+    '<div class="pkb-heading"><strong>02 · सभी अक्षर</strong><small>अक्षर पर टैप करें</small></div>'+
+    '<div class="pkb-gallery" id="pkBannaGrid"></div>'+
+    '<button class="pkb-link" onclick="loadPage(\'banna-matra\')">✨ अब कुड़ुख मात्रा और चिह्न सीखें →</button>'+
+    '<p class="pkb-footnote">यह Kurukh Banna <b>लिपि सीखने</b> का अभ्यास है, भाषा का अनुवाद नहीं।</p>'+
+    '<div id="pkBannaFontStatus" class="pkb-footstatus" role="status">Fonts लोड हो रहे हैं…</div>';
+  pkDrawBannaLetters();pkBannaCheckFonts();
+}
+function pkSwitchBanna(section){pkBannaSection=section==='consonants'?'consonants':'vowels';pkBannaSelected=pkBannaSection==='vowels'?0:10;pkDrawBannaLetters();}
+function pkSelectBanna(index){if(index<0||index>=PK_BANNA_LETTERS.length)return;pkBannaSelected=index;pkDrawBannaLetters();}
+function pkSpeakBanna(){var v=PK_BANNA_LETTERS[pkBannaSelected];if(v)speakText(v.hi,'female');}
+function pkDrawBannaLetters(){
+  var start=pkBannaSection==='vowels'?0:10, end=pkBannaSection==='vowels'?10:49;
+  if(pkBannaSelected<start||pkBannaSelected>=end)pkBannaSelected=start;
+  var v=PK_BANNA_LETTERS[pkBannaSelected];
+  var vtab=document.getElementById('pkBannaVowelTab'),ctab=document.getElementById('pkBannaConsonantTab');
+  if(vtab){vtab.classList.toggle('active',pkBannaSection==='vowels');vtab.setAttribute('aria-pressed',String(pkBannaSection==='vowels'));}
+  if(ctab){ctab.classList.toggle('active',pkBannaSection==='consonants');ctab.setAttribute('aria-pressed',String(pkBannaSection==='consonants'));}
+  var tabs=document.getElementById('pkBannaStyleTabs');if(tabs)tabs.innerHTML=pkBannaStyleTabs();
+  var preview=document.getElementById('pkBannaPreview');
+  if(preview)preview.innerHTML='<div class="pkb-selected-title"><span class="pkb-selected-hi">हिंदी · '+pkSafe(v.hi)+'</span><span class="pkb-key">Key: '+pkSafe(v.token)+'</span></div>'+
+    '<p class="pkb-selected-hint">'+pkSafe(v.roman)+' · इसी अक्षर के दोनों Kurukh Banna रूप नीचे दिखाए गए हैं।</p>'+
+    '<div class="pkb-selected-preview">'+pkBannaRows(v.token,false,v.hi)+'</div>'+
+    '<div class="pk-banna-actions"><button class="btn btn-primary" onclick="pkSpeakBanna()">🔊 हिंदी उच्चारण</button><button class="btn btn-outline" onclick="pkBannaNextLetter()">अगला अक्षर →</button></div>';
+  var grid=document.getElementById('pkBannaGrid');if(!grid)return;
+  grid.classList.toggle('dual',pkBannaStyle==='both');
+  var parts=[];
+  for(var i=start;i<end;i++){
+    var x=PK_BANNA_LETTERS[i];
+    parts.push('<button type="button" class="pk-banna-choice '+(i===pkBannaSelected?'active':'')+'" onclick="pkSelectBanna('+i+')" aria-label="हिंदी '+pkSafe(x.hi)+'" aria-pressed="'+(i===pkBannaSelected)+'">'+pkBannaRows(x.token,true,x.hi)+'<span class="hindi">'+pkSafe(x.hi)+'</span><span class="code">'+pkSafe(x.token)+'</span></button>');
+  }
+  grid.innerHTML=parts.join('');
+}
+function pkBannaNextLetter(){var start=pkBannaSection==='vowels'?0:10,end=pkBannaSection==='vowels'?10:49;pkBannaSelected=pkBannaSelected+1<end?pkBannaSelected+1:start;pkDrawBannaLetters();}
+function pkBannaComposed(){
+  var cons=PK_BANNA_LETTERS[pkBannaBaseIndex]||PK_BANNA_LETTERS[10];
+  var m=PK_BANNA_MATRAS[pkBannaMatraIndex]||PK_BANNA_MATRAS[0];
+  return {hi:cons.hi+m.sign,key:m.pre?m.key+cons.token:cons.token+m.key,base:cons,m:m};
+}
+function pkBannaChooseMatra(i){pkBannaMatraIndex=i;pkDrawBannaMatra();}
+function pkBannaChooseBase(value){var n=Number(value);if(Number.isInteger(n)&&n>=10&&n<49){pkBannaBaseIndex=n;pkDrawBannaMatra();}}
+function pkSpeakBannaMatra(){var v=pkBannaComposed();speakText(v.hi,'female');}
+function pkRenderBannaMatra(){
+  var el=document.getElementById('mainContent');
+  el.innerHTML=pkBannaHeader('✨ Kurukh Matra & Signs')+pkBannaHero('matra')+
+    '<div class="pkb-guide"><span class="pkb-free">✓ बिल्कुल Free</span><span>हिंदी + कुरुख बन्ना</span><span>Normal / Cursive</span></div>'+
+    '<div class="pkb-heading"><strong>01 · Font Style</strong><small>दोनों रूप या एक चुनें</small></div><div id="pkBannaMatraStyle"></div>'+
+    '<div class="pkb-heading"><strong>02 · अक्षर और मात्रा जोड़ें</strong><small>Interactive Practice</small></div><div id="pkBannaComposer"></div>'+
+    '<h3 class="pkb-section-title">03 · मात्रा अभ्यास · 10 रूप</h3><div class="pkb-matra-choices" id="pkBannaMatraGrid"></div>'+
+    '<h3 class="pkb-section-title">04 · विशेष चिह्न · 5</h3><div class="pkb-matra-choices" id="pkBannaSpecialGrid"></div>'+
+    '<p class="pkb-footnote"><b>Typing Tip:</b> इ की मात्रा व्यंजन से पहले लिखी जाती है: कि = <code>ik</code>। सेला = <code>[</code> तथा हेका = <code>]</code>।</p>'+
+    '<button class="pkb-link" onclick="loadPage(\'banna-lipi\')">🔤 वापस स्वर और व्यंजन सीखें →</button>'+
+    '<div class="pkb-footstatus" id="pkBannaFontStatus" role="status">Fonts लोड हो रहे हैं…</div>';
+  pkDrawBannaMatra();pkBannaCheckFonts();
+}
+function pkDrawBannaMatra(){
+  var tabs=document.getElementById('pkBannaMatraStyle');if(tabs)tabs.innerHTML=pkBannaStyleTabs();
+  var c=pkBannaComposed();
+  var box=document.getElementById('pkBannaComposer');
+  if(box)box.innerHTML='<div class="pkb-compose"><label for="pkBannaConsonant">हिंदी का व्यंजन चुनें</label><select id="pkBannaConsonant" onchange="pkBannaChooseBase(this.value)">'+PK_BANNA_LETTERS.slice(10).map(function(x,j){return '<option value="'+(j+10)+'" '+(j+10===pkBannaBaseIndex?'selected':'')+'>'+pkSafe(x.hi)+' · '+pkSafe(x.roman)+'</option>';}).join('')+'</select>'+
+    '<div class="pkb-selected-preview">'+pkBannaRows(c.key,false,c.hi)+'</div><div class="pkb-selected-hi">हिंदी · '+pkSafe(c.hi)+'</div><div class="pkb-key">'+pkSafe(c.m.name)+' · Typing Key: '+pkSafe(c.key)+'</div><button class="btn btn-primary" onclick="pkSpeakBannaMatra()">🔊 हिंदी उच्चारण सुनें</button></div>';
+  var base=PK_BANNA_LETTERS[pkBannaBaseIndex]||PK_BANNA_LETTERS[10];
+  var list=document.getElementById('pkBannaMatraGrid');
+  if(list)list.innerHTML=PK_BANNA_MATRAS.map(function(m,i){
+    var key=m.pre?m.key+base.token:base.token+m.key;
+    var hi=base.hi+m.sign;
+    return '<button type="button" aria-pressed="'+(i===pkBannaMatraIndex)+'" class="pkb-matra-choice '+(i===pkBannaMatraIndex?'active':'')+'" onclick="pkBannaChooseMatra('+i+')"><span class="name">'+pkSafe(hi)+'</span><span class="caption">'+pkSafe(m.name)+'</span>'+pkBannaRows(key,true,hi)+'<span class="keys">'+pkSafe(key)+'</span></button>';
+  }).join('');
+  var sp=document.getElementById('pkBannaSpecialGrid');
+  if(sp)sp.innerHTML=PK_BANNA_SIGNS.map(function(s,i){
+    var key=base.token+s.key;
+    var hindiExample=s.hi?base.hi+s.hi:base.hi+' + '+s.name;
+    return '<button type="button" class="pkb-matra-choice" onclick="pkBannaSpeakSign('+i+')"><span class="name">'+pkSafe(s.name)+'</span><span class="pkb-special-hi">हिंदी: '+pkSafe(hindiExample)+'</span>'+pkBannaRows(key,true,hindiExample)+'<span class="keys">'+pkSafe(key)+'</span></button>';
+  }).join('');
+}
+function pkBannaSpeakSign(i){var s=PK_BANNA_SIGNS[i];if(!s)return;if(s.hi){speakText(s.name+' '+s.example,'female');}else{speakText(s.name,'female');}}
+
         function pkOpenDiscover(id){
             stopAutoPlay();
             var c=PK_DISCOVER.find(function(item){return item.id===id;});
@@ -4289,6 +4580,8 @@ async function pkAdminAction(button,action){
             updateBadge();
 
             if (page === 'home') renderHome();
+            else if (page === 'banna-lipi') pkRenderBannaLipi();
+            else if (page === 'banna-matra') pkRenderBannaMatra();
             else if (page === 'login') renderLogin();
             else if (page === 'account') pkRenderAccount();
             else if (page === 'admin') pkRenderAdmin();
