@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Pocket Kurukh - Learn Kurukh</title>
+  <meta name="pk-build" content="firebase-key-corrected-20261019-v3">
   <style>
     /* ===== CSS VARIABLES ===== */
     :root {
@@ -1598,6 +1599,11 @@
   .pk-step small{display:block;color:var(--text-light);font-size:.68rem;margin-top:3px;line-height:1.45}
   .pk-status{border-radius:12px;background:#fff4d7;color:#794b00;padding:10px;font-size:.7rem;margin-top:12px;line-height:1.5}
   .pk-fineprint{color:#64748b;font-size:.64rem;line-height:1.55;text-align:center;margin-top:11px}
+
+    /* Audio controls stay legible on small phones and show the chosen Indian voice. */
+    .voice-bar {background:#e9f4ed; margin:8px 10px; padding:9px 7px; border:1px solid #d1e6d7; border-radius:12px;}
+    .voice-bar select {font-size:.7rem; padding:6px 5px; border:1px solid #bfd5c5; max-width:100%;}
+    .voice-bar .test-btn {font-size:.7rem; padding:6px 12px;}
   </style>
 </head>
 
@@ -1659,10 +1665,15 @@
 
     <!-- VOICE BAR -->
     <div class="voice-bar">
-      <span style="font-size:0.55rem; opacity:0.7;">🎤</span>
-      <select id="voiceSelect"></select>
-      <button class="test-btn" onclick="speakText('नमस्ते, यह परीक्षण है।', 'male')">Test Voice (Male)</button>
-      <button class="test-btn" onclick="speakText('नमस्ते, यह परीक्षण है।', 'female')">Test Voice (Female)</button>
+      <label for="voiceSelect" style="font-size:.66rem;color:var(--primary-dark);font-weight:700;">🇮🇳 Hindi Voice</label>
+      <select id="voiceSelect" aria-label="Choose an Indian Hindi voice" style="min-width:145px;max-width:100%;"></select>
+      <select id="speechRateSelect" aria-label="Audio playback speed" onchange="pkSetSpeechRate(this.value)">
+        <option value="0.80">🐢 Slow 0.80×</option>
+        <option value="0.90">Clear 0.90×</option>
+        <option value="1.00">Normal 1.00×</option>
+      </select>
+      <button class="test-btn" onclick="speakText('हे', null)" aria-label="Test pronunciation of हे">🔊 हे</button>
+      <button class="test-btn" onclick="speakText('हो', null)" aria-label="Test pronunciation of हो">🔊 हो</button>
     </div>
 
     <!-- MAIN CONTENT -->
@@ -3189,94 +3200,134 @@
         }
 
         // ============================================================================
-        //  AUDIO ENGINE — (unchanged)
+        //  AUDIO ENGINE — Indian Hindi voice, consistent pronunciation and user control
+        //  Browser TTS is Hindi, not a trained Kurukh TTS engine.
         // ============================================================================
         var selectedVoice = null;
-        var maleVoice = null;
-        var femaleVoice = null;
+        var hindiVoices = [];
+        var pkSpeechSerial = 0;
+        var pkNoHindiVoiceWarned = false;
+        var pkSpeechRate = 0.90;
+        try {
+            var savedRate = parseFloat(localStorage.getItem('pk_hindi_speech_rate'));
+            if ([0.8, 0.9, 1].includes(savedRate)) pkSpeechRate = savedRate;
+        } catch(e) {}
+
+        function pkSetSpeechRate(value) {
+            var parsed = parseFloat(value);
+            if (![0.8, 0.9, 1].includes(parsed)) return;
+            pkSpeechRate = parsed;
+            try { localStorage.setItem('pk_hindi_speech_rate', String(parsed)); } catch(e) {}
+        }
+
+        function pkVoiceKey(voice) {
+            return voice.lang + '|' + voice.name + '|' + voice.voiceURI;
+        }
 
         function loadVoices() {
-            if (!window.speechSynthesis) return;
-            var voices = window.speechSynthesis.getVoices();
             var select = document.getElementById('voiceSelect');
             if (!select) return;
+            var rateSelect = document.getElementById('speechRateSelect');
+            if (rateSelect) rateSelect.value = pkSpeechRate.toFixed(2);
+            if (!window.speechSynthesis) {
+                select.innerHTML = '<option value="">Audio not supported</option>';
+                return;
+            }
+            var browserVoices = window.speechSynthesis.getVoices() || [];
+            // Never quietly substitute English voices for Hindi/Kurukh text.
+            hindiVoices = browserVoices.filter(function(voice) {
+                return /^hi(?:[-_]|$)/i.test(voice.lang || '') || /hindi|हिन्दी|हिंदी/i.test(voice.name || '');
+            }).sort(function(a,b) {
+                function score(v) {
+                    var n = (v.name || '').toLowerCase();
+                    var l = (v.lang || '').replace('_','-').toLowerCase();
+                    return (l === 'hi-in' ? 100 : 0) +
+                           (/hindi|हिन्दी|हिंदी/i.test(n) ? 20 : 0) +
+                           (/google|microsoft/i.test(n) ? 10 : 0);
+                }
+                return score(b) - score(a);
+            });
+
+            var remembered = '';
+            try { remembered = localStorage.getItem('pk_preferred_hindi_voice') || ''; } catch(e) {}
+            var priorVoice = selectedVoice ? pkVoiceKey(selectedVoice) : '';
+            var chosen = hindiVoices.find(function(v){return pkVoiceKey(v) === remembered;}) ||
+                         hindiVoices.find(function(v){return pkVoiceKey(v) === priorVoice;}) ||
+                         hindiVoices[0] || null;
+            selectedVoice = chosen;
             select.innerHTML = '';
-
-            var hindiVoices = [];
-            for (var i = 0; i < voices.length; i++) {
-                if (voices[i].lang.includes('hi') || voices[i].name.includes('Hindi')) {
-                    hindiVoices.push(voices[i]);
-                }
-            }
-            if (hindiVoices.length === 0) {
-                for (var i = 0; i < Math.min(3, voices.length); i++) hindiVoices.push(voices[i]);
-            }
-
-            for (var i = 0; i < hindiVoices.length; i++) {
+            if (!hindiVoices.length) {
                 var opt = document.createElement('option');
-                opt.value = i;
-                opt.text = hindiVoices[i].name + ' (' + hindiVoices[i].lang + ')';
-                if (hindiVoices[i].lang === 'hi-IN') opt.selected = true;
+                opt.value = ''; opt.textContent = 'Hindi voice unavailable';
                 select.appendChild(opt);
+                select.disabled = true;
+                return;
             }
-
-            var allHindiVoices = hindiVoices;
-            maleVoice = null;
-            femaleVoice = null;
-
-            for (var i = 0; i < allHindiVoices.length; i++) {
-                var v = allHindiVoices[i];
-                var name = v.name.toLowerCase();
-                if (!maleVoice && (name.includes('male') || name.includes('man') || name.includes('boy') || name
-                        .includes('prabhat') || name.includes('deep'))) {
-                    maleVoice = v;
-                }
-                if (!femaleVoice && (name.includes('female') || name.includes('woman') || name.includes('girl') || name
-                        .includes('lekha') || name.includes('maya') || name.includes('samantha') || name.includes(
-                        'zira'))) {
-                    femaleVoice = v;
-                }
-            }
-
-            if (!maleVoice && allHindiVoices.length > 0) maleVoice = allHindiVoices[0];
-            if (!femaleVoice && allHindiVoices.length > 1) femaleVoice = allHindiVoices[1];
-            if (!femaleVoice && maleVoice) femaleVoice = maleVoice;
-
-            if (allHindiVoices.length) selectedVoice = maleVoice || allHindiVoices[0];
-
+            select.disabled = false;
+            hindiVoices.forEach(function(voice,i){
+                var opt = document.createElement('option');
+                opt.value = String(i);
+                opt.textContent = voice.name + ' (' + voice.lang + ')';
+                if (voice === chosen) opt.selected = true;
+                select.appendChild(opt);
+            });
             select.onchange = function() {
-                var idx = parseInt(this.value);
-                selectedVoice = allHindiVoices[idx] || allHindiVoices[0];
+                selectedVoice = hindiVoices[Number(this.value)] || hindiVoices[0];
+                try { localStorage.setItem('pk_preferred_hindi_voice', pkVoiceKey(selectedVoice)); } catch(e) {}
+                if (window.speechSynthesis) window.speechSynthesis.cancel();
+                pkSpeechSerial++;
+                showToast('🇮🇳 Voice selected: ' + selectedVoice.name, 2300);
             };
         }
 
         if (window.speechSynthesis) {
-            window.speechSynthesis.onvoiceschanged = loadVoices;
-            setTimeout(loadVoices, 300);
+            if (window.speechSynthesis.addEventListener) {
+                window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
+            } else {
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+            }
             loadVoices();
+            setTimeout(loadVoices, 350);
+            setTimeout(loadVoices, 1400);
+        }
+
+        function pkStopSpeech() {
+            pkSpeechSerial++;
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
         }
 
         function speakText(text, gender, callback) {
-            if (!window.speechSynthesis || !text) { if (callback) callback(); return; }
-            window.speechSynthesis.cancel();
-            var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'hi-IN';
-            utterance.rate = 0.85;
-            utterance.pitch = 1;
-
-            if (gender === 'male' && maleVoice) {
-                utterance.voice = maleVoice;
-                utterance.pitch = 1.0;
-            } else if (gender === 'female' && femaleVoice) {
-                utterance.voice = femaleVoice;
-                utterance.pitch = 1.2;
-            } else {
-                if (selectedVoice) utterance.voice = selectedVoice;
+            if (!text || !window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+                if (callback) callback();
+                return;
             }
-
-            utterance.onend = function() { if (callback) callback(); };
-            utterance.onerror = function() { if (callback) callback(); };
-            window.speechSynthesis.speak(utterance);
+            // Keep the written lesson unchanged. Speech engine may still mispronounce
+            // Kurukh words; human-recorded audio is needed for guaranteed accuracy.
+            var cleanText = String(text).normalize('NFC').trim();
+            if (!cleanText) { if(callback) callback(); return; }
+            pkStopSpeech();
+            var token = pkSpeechSerial;
+            var utterance = new SpeechSynthesisUtterance(cleanText);
+            // Pick exactly the voice shown in the user's dropdown for BOTH languages.
+            // Automatically switching between male/female voices caused inconsistent vowels.
+            utterance.lang = 'hi-IN';
+            utterance.rate = pkSpeechRate;
+            utterance.pitch = 1.0;
+            if (selectedVoice) utterance.voice = selectedVoice;
+            if (!selectedVoice && !pkNoHindiVoiceWarned) {
+                pkNoHindiVoiceWarned = true;
+                showToast('⚠️ Hindi (India) voice missing. Install a Hindi voice in Windows/Chrome.', 4500);
+            }
+            var finished = false;
+            function done() {
+                if (finished || token !== pkSpeechSerial) return;
+                finished = true;
+                if (callback) callback();
+            }
+            utterance.onend = done;
+            utterance.onerror = done;
+            try { window.speechSynthesis.speak(utterance); }
+            catch(e) { done(); }
         }
 
         function speakHindiThenKurukh(hindi, kurukh, element, callback) {
@@ -3291,9 +3342,9 @@
                 element.classList.add('active-word');
             }
 
-            speakText(hindi, 'male', function() {
+            speakText(hindi, null, function() {
                 statusDiv.innerText = '🔊 कुड़ुख: ' + kurukh.substring(0, 20);
-                speakText(kurukh, 'female', function() {
+                speakText(kurukh, null, function() {
                     statusDiv.style.display = 'none';
                     if (element && typeof element === 'object' && element.nodeType) {
                         element.classList.remove('active-word');
@@ -3307,7 +3358,7 @@
             var statusDiv = document.getElementById('speechStatus');
             statusDiv.style.display = 'block';
             statusDiv.innerText = '🔊 कुड़ुख: ' + kurukh.substring(0, 20);
-            speakText(kurukh, 'female', function() { statusDiv.style.display = 'none'; });
+            speakText(kurukh, null, function() { statusDiv.style.display = 'none'; });
         }
 
         // ============================================================================
@@ -3499,7 +3550,7 @@ async function pkStartGoogleLogin(){
             }
             var status = document.querySelector('.auto-play-status');
             if (status) status.textContent = '';
-            window.speechSynthesis.cancel();
+            pkStopSpeech();
         }
 
         function startAutoPlay(dayNum) {
