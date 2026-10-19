@@ -1634,8 +1634,8 @@
 @media(max-width:370px){.banna-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 /* ===== Kurukh Banna: creator-provided Normal/Tirkey and Cursive/Kujur faces ===== */
-@font-face{font-family:"PK-Banna-Normal";src:url("./KURUKH%20%20BANNA%20_Tirkey.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"PK-Banna-Cursive";src:url("./KURUKH%20%20BANNA%20_Kujur%281%29.otf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"PK-Banna-Normal";src:url("./KURUKH%20%20BANNA%20_Tirkey.ttf") format("truetype"),url("./KURUKH%20BANNA%20_Tirkey.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"PK-Banna-Cursive";src:url("./KURUKH%20%20BANNA%20_Kujur.otf") format("truetype"),url("./KURUKH%20%20BANNA%20_Kujur%281%29.otf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 .pk-banna-layout{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 .pk-banna-style{min-width:0;text-align:center;background:#f6faf6;border:1px solid #d9e9dc;border-radius:14px;padding:14px 7px;overflow:hidden}
 .pk-banna-style strong{display:block;font-size:.70rem;color:#466455;margin-bottom:8px}
@@ -4256,17 +4256,6 @@ function pkBannaSetStyle(s){
   pkBannaStyle=s;localStorage.setItem('pk_banna_style',s);
   if(_pkCurrentPage==='banna-matra')pkDrawBannaMatra();else pkDrawBannaLetters();
 }
-function pkBannaCheckFonts(){
-  var box=document.getElementById('pkBannaFontStatus');if(!box)return;
-  if(!document.fonts||!document.fonts.load){box.textContent='फ़ॉन्ट सपोर्ट उपलब्ध नहीं। दोनों Font Files GitHub में index.html के साथ जोड़ें।';return;}
-  Promise.allSettled([document.fonts.load('26px "PK-Banna-Normal"','Ak'),document.fonts.load('26px "PK-Banna-Cursive"','Ak')]).then(function(res){
-    var el=document.getElementById('pkBannaFontStatus');if(!el)return;
-    var n=res[0].status==='fulfilled'&&res[0].value.length>0;
-    var c=res[1].status==='fulfilled'&&res[1].value.length>0;
-    el.textContent=n&&c?'✓ Normal और Cursive दोनों Fonts लोड हैं।':
-      '⚠ '+(!n&&!c?'दोनों रूप':(!n?'Normal रूप':'Cursive रूप'))+' लोड नहीं हुआ। कृपया मूल Font फाइलें GitHub में index.html के साथ उसी फ़ोल्डर में रखें और फाइलनाम जाँचें।';
-  });
-}
 function pkBannaHeader(title){
   return '<div class="pkb-back"><button type="button" class="back-btn" onclick="loadPage(\'home\')" aria-label="Home">←</button><h3>'+title+'</h3></div>';
 }
@@ -4285,9 +4274,8 @@ function pkRenderBannaLipi(){
     '<div class="pkb-heading"><strong>02 · सभी अक्षर</strong><small>अक्षर पर टैप करें</small></div>'+
     '<div class="pkb-gallery" id="pkBannaGrid"></div>'+
     '<button class="pkb-link" onclick="loadPage(\'banna-matra\')">✨ अब कुड़ुख मात्रा और चिह्न सीखें →</button>'+
-    '<p class="pkb-footnote">यह Kurukh Banna <b>लिपि सीखने</b> का अभ्यास है, भाषा का अनुवाद नहीं।</p>'+
-    '<div id="pkBannaFontStatus" class="pkb-footstatus" role="status">Fonts लोड हो रहे हैं…</div>';
-  pkDrawBannaLetters();pkBannaCheckFonts();
+    '';
+  pkDrawBannaLetters();
 }
 function pkSwitchBanna(section){pkBannaSection=section==='consonants'?'consonants':'vowels';pkBannaSelected=pkBannaSection==='vowels'?0:10;pkDrawBannaLetters();}
 function pkSelectBanna(index){if(index<0||index>=PK_BANNA_LETTERS.length)return;pkBannaSelected=index;pkDrawBannaLetters();}
@@ -4333,8 +4321,8 @@ function pkRenderBannaMatra(){
     '<h3 class="pkb-section-title">04 · विशेष चिह्न · 5</h3><div class="pkb-matra-choices" id="pkBannaSpecialGrid"></div>'+
     '<p class="pkb-footnote"><b>Typing Tip:</b> इ की मात्रा व्यंजन से पहले लिखी जाती है: कि = <code>ik</code>। सेला = <code>[</code> तथा हेका = <code>]</code>।</p>'+
     '<button class="pkb-link" onclick="loadPage(\'banna-lipi\')">🔤 वापस स्वर और व्यंजन सीखें →</button>'+
-    '<div class="pkb-footstatus" id="pkBannaFontStatus" role="status">Fonts लोड हो रहे हैं…</div>';
-  pkDrawBannaMatra();pkBannaCheckFonts();
+    '';
+  pkDrawBannaMatra();
 }
 function pkDrawBannaMatra(){
   var tabs=document.getElementById('pkBannaMatraStyle');if(tabs)tabs.innerHTML=pkBannaStyleTabs();
