@@ -3390,6 +3390,7 @@ function pkAuthHelp(error){
     const code=String(error?.code||'');
     if(code==='auth/unauthorized-domain')return 'Website domain Firebase Authentication → Settings → Authorized domains में जोड़ें.';
     if(code==='auth/operation-not-allowed')return 'Firebase Authentication → Sign-in method में Google / Phone provider Enable करें.';
+    if(code==='auth/api-key-not-valid'||code==='auth/invalid-api-key')return 'Firebase Web API Key सही नहीं है. Firebase Project Settings → General → Your apps → Config और वेबसाइट की apiKey को मिलाएँ.';
     if(code==='auth/popup-blocked')return 'Browser के popup blocker में इस website के popups allow करें और फिर Google Login दबाएँ.';
     if(code==='auth/invalid-app-credential'||code==='auth/captcha-check-failed'||code==='auth/missing-app-credential')return 'reCAPTCHA verification failed. HTTPS domain, authorized domains और SMS region setup जाँचें.';
     if(code==='auth/billing-not-enabled')return 'Firebase Phone SMS के लिए billing account / Blaze plan की आवश्यकता हो सकती है.';
@@ -4350,7 +4351,15 @@ async function pkAdminAction(button,action){
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
     import { getFirestore, doc, getDoc, getDocFromServer, getDocs, collection, setDoc, updateDoc, writeBatch, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
-    const config={apiKey:'AIzaSyDjZf_-g9IkMf4NoBdLXJX_e3Qf4sVQczo',authDomain:'pocket-kurukh.firebaseapp.com',projectId:'pocket-kurukh',storageBucket:'pocket-kurukh.firebasestorage.app',messagingSenderId:'523631987246',appId:'1:523631987246:web:938243d9c6cef345926dbf'};
+    const config={
+      apiKey:'AIzaSyDjzF_-g9IkMf4NoBdlXJX_e3Qf4sVQczo',
+      authDomain:'pocket-kurukh.firebaseapp.com',
+      projectId:'pocket-kurukh',
+      storageBucket:'pocket-kurukh.firebasestorage.app',
+      messagingSenderId:'523631987246',
+      appId:'1:523631987246:web:938243d9c6cef345926dbf',
+      measurementId:'G-EZ68BM6SFJ'
+    };
     const app=initializeApp(config),auth=getAuth(app),db=getFirestore(app);
     window.pkFirebaseStatus='ready';
     let confirmation=null,recaptcha=null;
