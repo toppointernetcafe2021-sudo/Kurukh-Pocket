@@ -370,6 +370,12 @@
       color: var(--primary-dark);
     }
 
+    .pk-admin-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px; }
+    .pk-admin-stats span {background:#f0f8f2;border-radius:10px;padding:8px 3px;font-size:.65rem;text-align:center;}
+    .pk-admin-stats b {display:block;font-size:1.3rem;color:#1a472a;margin-top:5px;}
+    .pk-admin-request {padding:12px 0;border-bottom:1px solid #e8eaed;font-size:.79rem;line-height:1.6;overflow-wrap:anywhere;}
+    .pk-admin-request p {color:#64748b;font-size:.72rem;}
+    .pk-admin-uid {font-size:.6rem!important;overflow-wrap:anywhere;}
     /* ===== AUTH ===== */
     .auth-container {
       background: var(--card);
@@ -477,7 +483,7 @@
     }
 
     .otp-inputs input {
-      width: 50px;
+      width: 38px;
       height: 55px;
       text-align: center;
       font-size: 1.4rem;
@@ -1066,7 +1072,7 @@
       }
 
       .otp-inputs input {
-        width: 40px;
+        width: 36px;
         height: 48px;
         font-size: 1.2rem;
       }
@@ -1567,6 +1573,31 @@
       color: var(--gold);
       font-weight: 700;
     }
+
+/* ===== DISCOVER & COURSE PREVIEW CATEGORIES ===== */
+.discover-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0 18px}
+.discover-card{background:white;border:1px solid #e6ebea;border-radius:14px;padding:13px 10px;text-align:left;cursor:pointer;min-height:136px;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.discover-card:hover,.discover-card:focus-visible{transform:translateY(-2px);border-color:var(--gold);outline:none}
+.discover-card .dc-icon{font-size:1.65rem;display:block;margin-bottom:8px}
+.discover-card strong{display:block;font-size:.8rem;color:var(--primary-dark);line-height:1.35}
+.discover-card small{display:block;font-size:.65rem;color:#64748b;line-height:1.4;margin-top:5px}
+.discover-card .dc-tag{display:inline-block;margin-top:8px;font-size:.58rem;color:#166534;background:#eaf5ee;padding:3px 8px;border-radius:20px}
+.discover-intro{background:#f2f8f4;border:1px solid #dce9de;border-radius:14px;padding:13px;margin:12px 0;font-size:.76rem;line-height:1.65}
+.discover-lesson{background:white;border:1px solid #e8eaed;border-radius:12px;padding:12px;margin:9px 0}
+.discover-lesson strong{display:block;color:var(--primary);font-size:.82rem}
+.discover-preview{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #eef0f0;font-size:.8rem}
+.discover-preview:last-child{border:0}
+.discover-cta{border:2px solid var(--gold);background:#fffdf6;border-radius:16px;padding:16px;margin-top:16px;text-align:center}
+.discover-cta h3{color:var(--primary-dark);font-size:1rem;margin-bottom:7px}
+.discover-cta p{color:#596575;font-size:.73rem;line-height:1.6;margin-bottom:12px}
+
+  .pk-payment-steps{margin-top:14px;background:#fafdfb;border-radius:14px;border:1px solid #d9e8df;padding:14px}
+  .pk-step{display:flex;align-items:flex-start;gap:11px;color:var(--primary);font-weight:800;font-size:.9rem;margin:8px 0}
+  .pk-step>span{color:var(--text);font-weight:400;flex:1}
+  .pk-step b{font-size:.83rem;display:block}
+  .pk-step small{display:block;color:var(--text-light);font-size:.68rem;margin-top:3px;line-height:1.45}
+  .pk-status{border-radius:12px;background:#fff4d7;color:#794b00;padding:10px;font-size:.7rem;margin-top:12px;line-height:1.5}
+  .pk-fineprint{color:#64748b;font-size:.64rem;line-height:1.55;text-align:center;margin-top:11px}
   </style>
 </head>
 
@@ -1590,18 +1621,17 @@
         <div class="menu-item active" data-page="home"><span class="icon">🏠</span> Home</div>
         <div class="menu-item" data-page="phrases"><span class="icon">💬</span> Phrases</div>
         <div class="menu-item" data-page="flashcards"><span class="icon">🃏</span> Flashcards</div>
-        <div class="menu-item" data-page="general"><span class="icon">🗣️</span> General Conversation</div>
         <div class="menu-item" data-page="numbers-colors"><span class="icon">🔢</span> Numbers & Colours</div>
-        <div class="menu-item" data-page="food"><span class="icon">🍽️</span> Food & Drinks</div>
-        <div class="menu-item" data-page="relationships"><span class="icon">👨‍👩‍👧</span> Relationships</div>
-        <div class="menu-item" data-page="transport"><span class="icon">🚗</span> Transport</div>
-        <div class="menu-item" data-page="emergency"><span class="icon">🚨</span> Emergency & Health</div>
-        <div class="menu-item" data-page="nature"><span class="icon">🌿</span> Nature & Weather</div>
         <div class="menu-section">COURSE</div>
         <div class="menu-item" data-page="course"><span class="icon">🎓</span> 60 Days Course
           <span class="badge">NEW</span>
         </div>
         <div class="menu-item" data-page="my-learning"><span class="icon">📚</span> My Learning</div>
+        <div class="menu-item" id="pkAdminMenuItem" data-page="admin" style="display:none;"><span class="icon">🛡️</span> Admin Dashboard</div>
+        <div class="menu-section">PRACTICE & REWARDS</div>
+        <div class="menu-item" data-page="speaking">🎤 Speaking Practice</div>
+        <div class="menu-item" data-page="quiz">🧠 Quiz & Daily Challenge</div>
+        <div class="menu-item" data-page="achievements">🏆 Certificate & Achievements</div>
         <div class="menu-section">MORE</div>
         <div class="menu-item" data-page="more"><span class="icon">📚</span> More</div>
         <div class="menu-divider"></div>
@@ -1671,11 +1701,18 @@
         // ============================================================================
         var APP_STATE = {
             user: JSON.parse(localStorage.getItem('kurukh_user') || 'null'),
-            isLoggedIn: localStorage.getItem('kurukh_logged_in') === 'true',
-            hasPurchased: localStorage.getItem('kurukh_purchased') === 'true',
+            isLoggedIn: false,
+            hasPurchased: false,
             completedLessons: JSON.parse(localStorage.getItem('kurukh_completed') || '[]')
         };
         var _initialCheckDone = false;
+        var _pkCurrentPage = 'home';
+        window.pkAuthReady=false;
+        window.pkPaymentRequest=null;
+        window.pkUserUid=null;
+        window.pkIsAdmin=false;
+        window.pkAdminProfile=null;
+        window.pkFirebaseStatus='loading';
 
         var autoPlayState = {
             isPlaying: false,
@@ -1688,14 +1725,14 @@
         function saveState() {
             localStorage.setItem('kurukh_user', JSON.stringify(APP_STATE.user));
             localStorage.setItem('kurukh_logged_in', APP_STATE.isLoggedIn ? 'true' : 'false');
-            localStorage.setItem('kurukh_purchased', APP_STATE.hasPurchased ? 'true' : 'false');
+            localStorage.removeItem('kurukh_purchased'); // Never trust client-side purchase flags
             localStorage.setItem('kurukh_completed', JSON.stringify(APP_STATE.completedLessons));
         }
 
         function updateBadge() {
             var badge = document.getElementById('userBadge');
             if (APP_STATE.isLoggedIn && APP_STATE.user) {
-                badge.innerHTML = '👤 ' + APP_STATE.user.name.split(' ')[0];
+                badge.textContent = '👤 ' + (APP_STATE.user.name||'Learner').split(' ')[0];
             } else {
                 badge.innerHTML = '👤 Guest';
             }
@@ -1703,6 +1740,8 @@
             if (logoutItem) {
                 logoutItem.style.display = APP_STATE.isLoggedIn ? 'flex' : 'none';
             }
+            var adminItem = document.getElementById('pkAdminMenuItem');
+            if (adminItem) adminItem.style.display = APP_STATE.isLoggedIn && window.pkIsAdmin === true ? 'flex' : 'none';
         }
 
         function showToast(msg, duration) {
@@ -1726,7 +1765,18 @@
             openPaymentModal();
         }
 
+        function pkGetUpiLink() {
+            return 'upi://pay?pa='+encodeURIComponent(UPI_ID)+'&pn='+encodeURIComponent(UPI_PAYEE_NAME)+'&am=199&cu=INR&tn='+encodeURIComponent('Pocket Kurukh 60 Days Course');
+        }
+
+        function pkPayWithUpi() {
+            if (!APP_STATE.isLoggedIn) { loadPage('login'); return; }
+            window.location.href = pkGetUpiLink();
+            showToast('After payment, return here and submit your UPI reference number.', 4500);
+        }
+
         function openPaymentModal() {
+            if (!APP_STATE.isLoggedIn) { loadPage('login'); return; }
             var modal = document.getElementById('paymentModal');
             if (modal) {
                 modal.classList.add('active');
@@ -1775,19 +1825,46 @@
             });
         }
 
-        function verifyPaymentManually() {
-            showPaymentInfo();
+        function verifyPaymentManually() { pkShowPaymentClaim(); }
+
+        function showPaymentInfo() { pkShowPaymentClaim(); }
+
+        function pkShowPaymentClaim() {
+            closePaymentModal();
+            var input=document.getElementById('pkUtrInput');
+            if (input) { input.scrollIntoView({behavior:'smooth',block:'center'}); input.focus(); return; }
+            loadPage('course');
+            showToast('Pay by UPI, then enter your transaction reference in the course page.',3500);
         }
 
-        function showPaymentInfo() {
-            closePaymentModal();
-            showToast('📤 Payment screenshot WhatsApp par bheje: ' + SUPPORT_WHATSAPP + ' | UPI: ' + UPI_ID, 4000);
-            alert(
-                '✅ Payment ke baad screenshot WhatsApp par bheje.\n\n' +
-                '📱 WhatsApp: ' + SUPPORT_WHATSAPP + '\n' +
-                '💳 UPI ID: ' + UPI_ID + '\n\n' +
-                'Verification ke baad course unlock kar diya jayega.'
-            );
+        async function pkSubmitPaymentClaim() {
+            if (!APP_STATE.isLoggedIn) {loadPage('login');return;}
+            var element=document.getElementById('pkUtrInput');
+            var utr=(element?.value||'').trim().replace(/[\s-]/g,'').toUpperCase();
+            if(!/^[A-Z0-9]{12,22}$/.test(utr)){
+                showToast('Enter a valid UPI Transaction ID / UTR (12–22 letters or digits)',3800);return;
+            }
+            if(!window.pkCreatePaymentRequest){showToast('Firebase is not ready. Please host the app on HTTPS.',4000);return;}
+            var btn=document.getElementById('pkSubmitClaim');
+            if(btn){btn.disabled=true;btn.textContent='⏳ Submitting...';}
+            try{
+                var request=await window.pkCreatePaymentRequest(utr);
+                window.pkPaymentRequest=request;
+                showToast('✅ Request submitted. Course unlocks after payment verification.',4000);
+                _renderCourseContent();
+            }catch(e){
+                showToast('Could not submit request: '+(e.code||e.message||'Please try again'),5000);
+                if(btn){btn.disabled=false;btn.textContent='📤 Submit Transaction ID';}
+            }
+        }
+
+        function pkOpenWhatsappProof(){
+            if(!APP_STATE.isLoggedIn)return loadPage('login');
+            var ref=window.pkPaymentRequest?.utr||document.getElementById('pkUtrInput')?.value||'Not submitted';
+            var uid=window.pkUserUid||'Not signed in';
+            var who=APP_STATE.user?.name||'Learner';
+            var msg='Johar! Pocket Kurukh 60 Days Course payment verification request.\nName: '+who+'\nUser ID: '+uid+'\nAmount: ₹199\nUPI reference: '+ref+'\nPlease check the transaction and approve my course access.';
+            window.open('https://wa.me/91'+SUPPORT_WHATSAPP+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
         }
 
         // ============================================================================
@@ -2951,6 +3028,16 @@
                 { hin: 'शुभकामनाएन', kur: 'शुभकामनाएन', full: 'शुभकामनाएन (Best wishes!)' },
             ] };
 
+        // Day 30 was missing from the previous file. Restore a genuine 60-day
+        // structure using review words that already exist in the source course.
+        // No new/guessed Kurukh translations are introduced.
+        dayData[30] = { title: 'Day 30: Verbs Practice & Review', words: [
+            ...dayData[21].words.slice(0,3),
+            ...dayData[22].words.slice(0,3),
+            ...dayData[23].words.slice(0,3),
+            ...dayData[24].words.slice(0,3)
+        ] };
+
         // ---- Assign dayData to COURSE_DATA ----
         for (var d = 1; d <= 60; d++) {
             if (dayData[d]) {
@@ -3245,7 +3332,7 @@
         // ============================================================================
         //  AUTH FUNCTIONS (unchanged)
         // ============================================================================
-        function toggleAuth() { if (APP_STATE.isLoggedIn) { logout(); } else { loadPage('login'); } }
+        function toggleAuth() { loadPage(APP_STATE.isLoggedIn ? 'account' : 'login'); }
 
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
@@ -3253,6 +3340,9 @@
                 APP_STATE.user = null;
                 APP_STATE.hasPurchased = false;
                 APP_STATE.completedLessons = [];
+                window.pkIsAdmin = false;
+                window.pkAdminProfile = null;
+                if(window.pkSignOut) window.pkSignOut().catch(err=>console.warn('Sign out:',err));
                 saveState();
                 updateBadge();
                 _initialCheckDone = false;
@@ -3265,20 +3355,77 @@
         //  RENDER FUNCTIONS (updated to use expanded words)
         // ============================================================================
         function renderLogin() {
-            var html = `<div class="auth-container"><div class="logo"><h2>🎓 Pocket Kurukh</h2><p>60 Days Complete Course</p></div>
-            <div id="authForm"><div class="form-group"><label>👤 Full Name</label><input type="text" id="loginName" placeholder="Enter your full name"></div>
-            <div class="form-group"><label>📱 Mobile Number</label><input type="tel" id="loginMobile" placeholder="Enter 10 digit mobile" maxlength="10"></div>
-            <div class="form-group"><label>📍 Address</label><input type="text" id="loginAddress" placeholder="Enter your address"></div>
-            <button class="btn btn-primary" onclick="sendOTP()">📨 Send OTP</button></div>
-            <div id="otpSection" style="display:none;"><p style="text-align:center;font-size:0.8rem;color:var(--text-light);">OTP sent to your mobile</p>
-            <div class="otp-inputs"><input type="text" maxlength="1" class="otp-digit" oninput="moveOTP(this,'otp2')" id="otp1">
-            <input type="text" maxlength="1" class="otp-digit" oninput="moveOTP(this,'otp3')" id="otp2">
-            <input type="text" maxlength="1" class="otp-digit" oninput="moveOTP(this,'otp4')" id="otp3">
-            <input type="text" maxlength="1" class="otp-digit" oninput="moveOTP(this,'otp5')" id="otp4"></div>
-            <div class="timer-text" id="timerText">⏳ 30 seconds remaining</div>
-            <button class="btn btn-gold" onclick="verifyOTP()">✅ Verify OTP</button>
-            <div class="auth-switch"><span onclick="resendOTP()">🔄 Resend OTP</span></div></div></div>`;
+            if(APP_STATE.isLoggedIn){pkRenderAccount();return;}
+            var html = `<div class="auth-container"><div class="logo"><h2>🔐 Login to Pocket Kurukh</h2><p>Sign in once • Learn anytime</p></div>
+            <button class="btn btn-primary" id="pkGoogleBtn" onclick="pkStartGoogleLogin()" style="font-size:1rem;padding:14px;">🇬 Sign in with Google</button>
+            <p style="text-align:center;font-size:.7rem;color:var(--text-light);margin:12px 0;">Quick login with your Google account. No OTP needed.</p>
+            <div style="border-top:1px solid #e8eaed;margin:16px 0;padding-top:14px;">
+            <button class="btn btn-outline" onclick="pkTogglePhoneLogin()" type="button">📱 Use Mobile OTP instead ▾</button>
+            <div id="pkPhoneLogin" style="display:none;margin-top:14px;">
+                <div id="authForm"><div class="form-group"><label>👤 Full Name</label><input type="text" id="loginName" placeholder="Your name" autocomplete="name"></div>
+                <div class="form-group"><label>📱 Mobile Number</label><input type="tel" id="loginMobile" inputmode="numeric" autocomplete="tel-national" placeholder="10 digit Indian mobile" maxlength="10"></div>
+                <div class="form-group"><label>📍 Address (optional)</label><input type="text" id="loginAddress" placeholder="Village / city (optional)"></div>
+                <div style="font-size:.65rem;color:#64748b;margin:8px 0;">Firebase SMS verification and anti-spam check are required. Carrier/SMS charges may apply.</div>
+                <div id="pkRecaptcha" style="margin:10px 0;"></div><button class="btn btn-primary" onclick="sendOTP()">📨 Send SMS OTP</button></div>
+                <div id="otpSection" style="display:none;"><p style="text-align:center;font-size:0.8rem;color:var(--text-light);">Enter the OTP sent to your mobile</p>
+                <div class="otp-inputs"><input type="text" maxlength="1" inputmode="numeric" class="otp-digit" oninput="moveOTP(this,'otp2')" id="otp1">
+                <input type="text" maxlength="1" inputmode="numeric" class="otp-digit" oninput="moveOTP(this,'otp3')" id="otp2">
+                <input type="text" maxlength="1" inputmode="numeric" class="otp-digit" oninput="moveOTP(this,'otp4')" id="otp3">
+                <input type="text" maxlength="1" inputmode="numeric" class="otp-digit" oninput="moveOTP(this,'otp5')" id="otp4">
+                <input type="text" maxlength="1" inputmode="numeric" class="otp-digit" oninput="moveOTP(this,'otp6')" id="otp5">
+                <input type="text" maxlength="1" inputmode="numeric" class="otp-digit" id="otp6"></div>
+                <button class="btn btn-gold" onclick="verifyOTP()">✅ Verify OTP</button>
+                <button class="btn btn-outline" style="margin-top:8px" onclick="resendOTP()">↩ Send another OTP</button></div>
+            </div></div>
+            <div id="pkLoginError" style="display:none;background:#fff1f2;color:#9f1239;padding:12px;border-radius:10px;font-size:.77rem;margin-top:14px;line-height:1.5;overflow-wrap:anywhere" role="alert"></div>
+            <p style="text-align:center;font-size:.64rem;color:#64748b;margin-top:14px;">Use the same account whenever you return to access your purchased course. Google/OTP needs Firebase Authentication enabled on the hosted HTTPS domain.</p></div>`;
             document.getElementById('mainContent').innerHTML = html;
+        }
+        function pkTogglePhoneLogin(){
+            var section=document.getElementById('pkPhoneLogin');
+            if(section)section.style.display=section.style.display==='none'?'block':'none';
+        }
+
+function pkAuthHelp(error){
+    const code=String(error?.code||'');
+    if(code==='auth/unauthorized-domain')return 'Website domain Firebase Authentication → Settings → Authorized domains में जोड़ें.';
+    if(code==='auth/operation-not-allowed')return 'Firebase Authentication → Sign-in method में Google / Phone provider Enable करें.';
+    if(code==='auth/popup-blocked')return 'Browser के popup blocker में इस website के popups allow करें और फिर Google Login दबाएँ.';
+    if(code==='auth/invalid-app-credential'||code==='auth/captcha-check-failed'||code==='auth/missing-app-credential')return 'reCAPTCHA verification failed. HTTPS domain, authorized domains और SMS region setup जाँचें.';
+    if(code==='auth/billing-not-enabled')return 'Firebase Phone SMS के लिए billing account / Blaze plan की आवश्यकता हो सकती है.';
+    if(code==='auth/too-many-requests'||code==='auth/quota-exceeded')return 'SMS/OTP quota या rate limit पहुँची है. बाद में retry करें.';
+    if(code==='auth/invalid-phone-number')return 'सही 10-digit भारतीय Mobile Number डालें.';
+    if(code==='auth/invalid-verification-code')return 'OTP गलत है. SMS में आया 6-digit code फिर से डालें.';
+    if(code==='auth/network-request-failed')return 'Internet connection या browser network permission जाँचें.';
+    if(code==='auth/popup-closed-by-user')return 'Google Login window बंद हो गई. कृपया फिर प्रयास करें.';
+    if(window.location.protocol==='file:')return 'HTML को file:// से खोलने पर Firebase Login नहीं चलेगा. GitHub Pages HTTPS पर deploy करें.';
+    return 'Firebase Login असफल: '+(code||error?.message||'Unknown error')+'. Console settings और HTTPS hosting चेक करें.';
+}
+function pkDisplayAuthError(error){
+    const msg=pkAuthHelp(error),el=document.getElementById('pkLoginError');
+    if(el){el.textContent='⚠️ '+msg;el.style.display='block';}
+    showToast(msg,6000);
+    console.error('Pocket Kurukh Firebase Auth:',error);
+}
+async function pkStartGoogleLogin(){
+            var btn=document.getElementById('pkGoogleBtn');
+            if(btn){btn.disabled=true;btn.textContent='⏳ Signing in...';}
+            try{
+                if(!window.pkGoogleSignIn)throw Error('Firebase SDK not loaded. Check internet, GitHub Pages HTTPS and browser console.');
+                await window.pkGoogleSignIn();
+                showToast('✅ Google account verified');
+            }catch(e){
+                pkDisplayAuthError(e);
+            }finally{if(btn&&btn.isConnected){btn.disabled=false;btn.textContent='🇬 Sign in with Google';}}
+        }
+        function pkRenderAccount(){
+            if(!APP_STATE.isLoggedIn){renderLogin();return;}
+            var name=pkSafe(APP_STATE.user?.name||'Learner');
+            var emailOrPhone=pkSafe(APP_STATE.user?.email||APP_STATE.user?.mobile||'');
+            var uid=pkSafe(window.pkUserUid||'Loading...');
+            var adminPanel=window.pkIsAdmin ? '<p style="font-size:.78rem;color:var(--primary);margin:9px 0">🛡️ Verified Administrator'+(window.pkAdminProfile?.village?' • '+pkSafe(window.pkAdminProfile.village):'')+'</p><button class="btn btn-gold" onclick="loadPage(\'admin\')" style="margin:10px 0">🛡️ Open Admin Dashboard</button>' : '';
+            var html='<div class="page-title">👤 MY ACCOUNT</div><div class="course-card"><h3>'+name+'</h3><p style="margin:7px 0;color:var(--text-light)">'+emailOrPhone+'</p><p style="font-size:.68rem;margin:12px 0">Verified Firebase User ID: <code style="overflow-wrap:anywhere">'+uid+'</code></p>'+adminPanel+'<p style="font-size:.78rem">Course: <strong>'+(APP_STATE.hasPurchased?'✅ Unlocked':'🔒 Not yet unlocked')+'</strong></p><button class="btn btn-gold" onclick="loadPage(\'course\')" style="margin-top:12px">🎓 My 60 Days Course</button><button class="btn btn-outline" onclick="logout()" style="margin-top:10px">🚪 Logout</button></div>';
+            document.getElementById('mainContent').innerHTML=html;
         }
 
         var otpTimer = null;
@@ -3288,70 +3435,46 @@
                 err) { console.error(err); }
         }
 
-        function sendOTP() {
+        async function sendOTP() {
             var name = document.getElementById('loginName').value.trim();
             var mobile = document.getElementById('loginMobile').value.trim();
             var address = document.getElementById('loginAddress').value.trim();
-            if (!name || !mobile || !address) { alert('⚠️ Please fill all fields'); return; }
-            if (mobile.length !== 10) { alert('⚠️ Enter valid 10 digit mobile number'); return; }
-            APP_STATE.user = { name: name, mobile: mobile, address: address };
-            document.getElementById('authForm').style.display = 'none';
-            document.getElementById('otpSection').style.display = 'block';
-            var timer = 30;
-            document.getElementById('timerText').innerHTML = '⏳ ' + timer + ' seconds remaining';
-            if (otpTimer) clearInterval(otpTimer);
-            otpTimer = setInterval(function() { timer--; if (timer <= 0) { clearInterval(otpTimer);
-                    document.getElementById('timerText').innerHTML = '⏳ OTP expired. Resend.'; } else { document
-                        .getElementById('timerText').innerHTML = '⏳ ' + timer + ' seconds remaining'; } }, 1000);
-            alert('📨 OTP sent!');
-            setTimeout(function() { document.getElementById('otp1').value = '1';
-                document.getElementById('otp2').value = '2';
-                document.getElementById('otp3').value = '3';
-                document.getElementById('otp4').value = '4'; }, 500);
+            if (!name || !/^[6-9]\d{9}$/.test(mobile)) {
+                showToast('Enter your name and a valid 10-digit Indian mobile number'); return;
+            }
+            APP_STATE.user = {name:name, mobile:mobile, address:address};
+            window.pkPhoneDraft={name:name,mobile:mobile,address:address};
+            if (!window.pkSendSmsOtp) { showToast('Firebase Authentication loading or not configured'); return; }
+            try {
+                await window.pkSendSmsOtp('+91'+mobile);
+                document.getElementById('authForm').style.display='none';
+                document.getElementById('otpSection').style.display='block';
+                showToast('SMS code sent. Please check your phone.');
+            } catch(e) { pkDisplayAuthError(e); }
         }
 
         function moveOTP(input, nextId) { if (input.value.length === 1) { var next = document.getElementById(nextId); if (next)
                 next.focus(); } }
 
-        function verifyOTP() {
-            var otp = document.getElementById('otp1').value + document.getElementById('otp2').value + document
-                .getElementById('otp3').value + document.getElementById('otp4').value;
-            if (otp === '1234') {
-                APP_STATE.isLoggedIn = true;
-                saveState();
-                updateBadge();
-                saveUserToFirebase(APP_STATE.user.mobile, APP_STATE.user.name, APP_STATE.user.address);
-                _initialCheckDone = false;
-                checkPurchaseStatus(APP_STATE.user.mobile).then(() => {
-                    if (otpTimer) clearInterval(otpTimer);
-                    alert('✅ Login Successful! Welcome ' + APP_STATE.user.name);
-                    loadPage('course');
-                });
-            }
+        async function verifyOTP() {
+            var otp = [1,2,3,4,5,6].map(i=>document.getElementById('otp'+i)?.value||'').join('');
+            if (!/^\d{6}$/.test(otp)) { showToast('Enter the 6-digit SMS code'); return; }
+            try {
+                if (!window.pkVerifySmsOtp) throw Error('SMS authentication unavailable');
+                await window.pkVerifySmsOtp(otp);
+                APP_STATE.isLoggedIn=true; saveState(); updateBadge(); _initialCheckDone=false;
+                await window.checkPurchaseStatus();
+                loadPage('course');
+            } catch(e) { pkDisplayAuthError(e); }
         }
 
         function resendOTP() {
-            if (otpTimer) clearInterval(otpTimer);
-            var timer = 30;
-            document.getElementById('timerText').innerHTML = '⏳ ' + timer + ' seconds remaining';
-            otpTimer = setInterval(function() { timer--; if (timer <= 0) { clearInterval(otpTimer);
-                    document.getElementById('timerText').innerHTML = '⏳ OTP expired. Resend.'; } else { document
-                        .getElementById('timerText').innerHTML = '⏳ ' + timer + ' seconds remaining'; } }, 1000);
-            document.getElementById('otp1').value = '';
-            document.getElementById('otp2').value = '';
-            document.getElementById('otp3').value = '';
-            document.getElementById('otp4').value = '';
-            document.getElementById('otp1').focus();
-            alert('📨 New OTP sent! Use 1234 for demo.');
-            setTimeout(function() { document.getElementById('otp1').value = '1';
-                document.getElementById('otp2').value = '2';
-                document.getElementById('otp3').value = '3';
-                document.getElementById('otp4').value = '4'; }, 500);
+            document.getElementById('otpSection').style.display='none';
+            document.getElementById('authForm').style.display='block';
+            showToast('Tap Send OTP to request a new code.');
         }
 
-        // ============================================================================
-        //  AUTO-PLAY ENGINE
-        // ============================================================================
+        // Restored shared playback variables (required by every navigation).
         var autoPlayTimer = null;
         var autoPlayActive = false;
         var autoPlayWords = [];
@@ -3454,12 +3577,16 @@
         //  COURSE PAGE
         // ============================================================================
         function renderCoursePage() {
+            if (!window.pkAuthReady) {
+                document.getElementById('mainContent').innerHTML='<div class="course-card">⏳ Restoring your login session...</div>';
+                return;
+            }
             if (!APP_STATE.isLoggedIn) { renderLogin(); return; }
             if (!_initialCheckDone) {
                 _initialCheckDone = true;
-                checkPurchaseStatus(APP_STATE.user.mobile).then(() => {
-                    _renderCourseContent();
-                });
+                window.checkPurchaseStatus().then(() => {
+                    if(_pkCurrentPage==='course')_renderCourseContent();
+                }).catch(()=>{if(_pkCurrentPage==='course')_renderCourseContent();});
                 document.getElementById('mainContent').innerHTML =
                     `<div style="text-align:center;padding:2rem;font-size:1.1rem;">⏳ Checking your course status...</div>`;
                 return;
@@ -3481,21 +3608,25 @@
             if (APP_STATE.hasPurchased) {
                 html += `<button class="btn btn-primary" onclick="renderCourseFolderView()">📂 Browse Course</button>`;
             } else {
-                html +=
-                    `<div style="margin-top:10px;"><div class="payment-option selected" style="border-color:var(--gold);background:#eaf5ee;">
-                <div><span class="icon">💳</span><span class="name">Pay Now, UPI</span><br><span class="desc">Scan QR or use UPI ID</span></div>
-                <span style="font-weight:700;color:var(--gold);">${COURSE_DATA.price}</span></div>
-                <button class="btn btn-gold" onclick="openPaymentModal()" style="margin-top:12px;">💳 Pay Now</button>
-                <button class="btn btn-outline" onclick="showPaymentInfo()" style="margin-top:10px;">✅ I Have Paid</button>
-                <button class="btn btn-outline" onclick="verifyPaymentManually()" style="margin-top:10px;">✅ Verify Payment</button>
-                <button class="refresh-btn" onclick="refreshPurchaseStatus()" style="margin-top:12px;">🔄 Refresh Status</button>
-                <div style="text-align:center;margin-top:8px;font-size:0.6rem;color:var(--text-light);">📱 Payment ke baad screenshot WhatsApp par bheje<br><span style="font-size:0.5rem;">Admin approve karne ke baad "Refresh Status" dabayein</span></div></div>
+                var currentRequest=window.pkPaymentRequest;
+                var pending=currentRequest&&currentRequest.status==='pending';
+                html+=`<div class="pk-payment-steps"><div class="pk-step">1 <span><b>Pay ₹199 with UPI</b><small>Use your UPI app, scan the QR or copy the UPI ID.</small></span></div>
+                <button class="btn btn-gold" style="margin:10px 0" onclick="openPaymentModal()">💳 Pay ₹199 via UPI</button>
+                <div class="pk-step">2 <span><b>Submit payment reference</b><small>Enter UPI Transaction ID / UTR from the payment receipt.</small></span></div>
+                <div class="form-group" style="margin-top:10px"><label>UPI Transaction ID / UTR</label><input id="pkUtrInput" type="text" inputmode="text" autocomplete="off" placeholder="e.g. 12-digit UPI reference" maxlength="22" value="${pkSafe(currentRequest?.utr||'')}"></div>
+                <button class="btn btn-primary" id="pkSubmitClaim" onclick="pkSubmitPaymentClaim()">📤 Submit Transaction ID</button>
+                <div class="pk-step" style="margin-top:14px">3 <span><b>Payment verification & unlock</b><small>We check payment before allowing full course access.</small></span></div>
+                ${pending?'<div class="pk-status">⏳ Payment request submitted • Awaiting verification. This is NOT confirmation of payment.</div>':''}
+                <button class="btn btn-outline" style="margin-top:10px" onclick="pkOpenWhatsappProof()">💬 WhatsApp Payment Details</button>
+                <button class="refresh-btn" onclick="refreshPurchaseStatus()">🔄 Check Course Unlock Status</button>
+                <p class="pk-fineprint">Please pay only once. Submitting a reference does not unlock the course; access is granted only after verified approval.</p></div>
                 <div id="paymentModal" class="payment-modal-overlay"><div class="payment-modal"><button class="modal-close" onclick="closePaymentModal()">✕</button>
-                <div class="modal-title">💳 Complete Payment</div><div class="modal-sub">${COURSE_DATA.price} — 60 Days Course</div>
-                <div class="qr-wrapper"><img id="qrImage" src="${getQrCodeUrl()}" alt="UPI QR Code"><div class="qr-label">📸 Scan & Pay using any UPI app</div></div>
+                <div class="modal-title">💳 Pay ₹199 • Pocket Kurukh</div><div class="modal-sub">60 Days Complete Course</div>
+                <div class="qr-wrapper"><img id="qrImage" src="${getQrCodeUrl()}" alt="UPI Payment QR Code"><div class="qr-label">Scan with PhonePe, GPay, Paytm or any UPI app</div></div>
                 <div class="upi-box"><span class="upi-id">${UPI_ID}</span><button class="copy-btn" id="copyUpiBtn" onclick="copyUPI()">📋 Copy</button></div>
-                <div class="action-row"><button class="btn btn-gold" onclick="copyUPI()">📋 Copy UPI</button><button class="btn btn-primary" onclick="verifyPaymentManually()">✅ I Have Paid</button></div>
-                <div class="whatsapp-hint">📤 Payment ke baad screenshot WhatsApp par bheje:<br><strong>${SUPPORT_WHATSAPP}</strong> &nbsp;|&nbsp; UPI: <strong>${UPI_ID}</strong></div></div></div>`;
+                <button class="btn btn-gold" onclick="pkPayWithUpi()">📲 Open UPI App (this phone)</button>
+                <button class="btn btn-outline" style="margin-top:8px" onclick="pkShowPaymentClaim()">✅ I've paid — Enter UTR</button>
+                <p class="pk-fineprint">Only a verified payment will unlock your course. If you need help, use WhatsApp.</p></div></div>`;
             }
             html += `</div>`;
 
@@ -3515,7 +3646,7 @@
         //  FOLDER VIEW — with sub-groups for tenses
         // ============================================================================
         function renderCourseFolderView() {
-            if (!APP_STATE.hasPurchased) { alert('⚠️ Please purchase the course first!');
+            if (!APP_STATE.hasPurchased || !APP_STATE.isLoggedIn || !window.pkVerifiedEntitlement) { alert('⚠️ Secure course approval is required. Please login and check payment status.');
                 renderCoursePage(); return; }
 
             var html =
@@ -3660,7 +3791,7 @@
         function refreshPurchaseStatus() {
             if (!APP_STATE.isLoggedIn) { showToast('Please login first', 2000); return; }
             showToast('⏳ Checking status...', 1500);
-            checkPurchaseStatus(APP_STATE.user.mobile).then((approved) => {
+            window.checkPurchaseStatus().then((approved) => {
                 _renderCourseContent();
                 if (approved) { showToast('✅ Course unlocked!', 2000); } else { showToast(
                     '❌ Still not approved. Contact admin.', 2500); }
@@ -3719,7 +3850,7 @@
         function renderLesson(dayNum) {
             stopAutoPlay();
 
-            if (!APP_STATE.hasPurchased) { alert('⚠️ Please purchase the course first!');
+            if (!APP_STATE.hasPurchased || !APP_STATE.isLoggedIn || !window.pkVerifiedEntitlement) { alert('⚠️ Secure course approval is required. Please login and check payment status.');
                 renderCoursePage(); return; }
             var day = COURSE_DATA.days[dayNum];
             if (!day) { renderCourseFolderView(); return; }
@@ -3786,6 +3917,7 @@
                         '🎉🎉 Congratulations! You have completed the entire course! 🎉🎉'); } else { alert(
                         '✅ Day ' + dayNum + ' completed! Keep going!'); }
             }
+            pkRecordActivity();
             renderLesson(dayNum);
         }
 
@@ -3818,20 +3950,12 @@
                     </div>
                 </div>
 
-                <div class="page-title">📚 Categories</div>
-                <div class="category-grid">
-            `;
-
-            var icons = ['🗣️', '🍽️', '👨‍👩‍👧', '🚗', '🚨', '🌿'];
-            var keys = Object.keys(categories);
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                var cat = categories[key];
-                html +=
-                    `<div class="category-card" onclick="openCategory('${key}')"><div class="icon">${icons[i % icons.length]}</div><div class="name">${cat.title.substring(4)}</div><div class="count">${cat.words.length} words</div></div>`;
-            }
-
-            html += `
+                <div class="page-title">✨ Explore Kurukh • Free Lesson Previews</div>
+                <div class="discover-grid" id="discoverGrid">${pkDiscoverCards()}</div>
+                <div class="course-card" style="background:#f0f8f1;border-color:#d7e9dc;text-align:center">
+                   <strong style="font-size:.88rem;color:var(--primary)">🎯 First try the free daily quiz</strong>
+                   <p style="font-size:.7rem;color:var(--text-light);margin:7px 0 11px">Check what you already know before choosing the full course.</p>
+                   <button class="btn btn-primary" onclick="loadPage('quiz')">🧠 Start free challenge</button>
                 </div>
 
                 <div class="page-title">🔢 Numbers 0-10</div>
@@ -3877,6 +4001,65 @@
 
             document.getElementById('mainContent').innerHTML = html;
         }
+
+        // Course previews use ONLY vocabulary already present in COURSE_DATA.
+        // Free samples are discoverable; complete lessons are reached through course access checks.
+        var PK_DISCOVER = [
+            {id:'quickstart',icon:'👋',title:'Start Speaking Kurukh',days:[1,9,23]},
+            {id:'homefamily',icon:'🏡',title:'Family & Home Talk',days:[3,12,55]},
+            {id:'village',icon:'🌾',title:'Village & Farming',days:[10,20,25,58]},
+            {id:'daily',icon:'☀️',title:'My Daily Routine',days:[8,21,22]},
+            {id:'grammar',icon:'📘',title:'Grammar & Tenses',days:[31,39,47]},
+            {id:'real-talk',icon:'💬',title:'Real-Life Sentences',days:[55,56,57,59]},
+            {id:'travel',icon:'🚌',title:'Travel & Directions',days:[9,20,24]},
+            {id:'culture',icon:'🥁',title:'Culture & Community',days:[14,17,57]}
+        ];
+        function pkDiscoverCards(){return PK_DISCOVER.map(function(c){return '<button class="discover-card" onclick="pkOpenDiscover(\''+c.id+'\')"><span class="dc-icon">'+c.icon+'</span><strong>'+pkSafe(c.title)+'</strong><span class="dc-tag">27 words / sentences →</span></button>';}).join('');}
+        function pkOpenDiscover(id){
+            stopAutoPlay();
+            var c=PK_DISCOVER.find(function(item){return item.id===id;});
+            if(!c){loadPage('home');return;}
+            var html='<div class="lesson-header"><button class="back-btn" onclick="loadPage(\'home\')">←</button><h3>'+c.icon+' '+pkSafe(c.title)+'</h3></div>';
+            // Keep the original 7 preview entries and add 20 more, sourced from the same course lessons.
+            var collected=[], seen=new Set();
+            function pkAddWords(day, maxCount){
+                var lesson=COURSE_DATA.days[day];
+                if(!lesson||!Array.isArray(lesson.words))return;
+                var added=0;
+                lesson.words.forEach(function(w){
+                    if(added>=maxCount||!w.hin||!w.kur)return;
+                    var key=w.hin.trim()+'|'+w.kur.trim();
+                    if(seen.has(key))return;
+                    seen.add(key);
+                    collected.push({word:w,day:day,title:lesson.title});
+                    added++;
+                });
+            }
+            // Preserve the previous first seven examples in their original order.
+            c.days.forEach(function(day,i){pkAddWords(day,i===0?3:2);});
+            // Complete each preview to 27 unique words/sentences (7 old + 20 new).
+            c.days.forEach(function(day){if(collected.length<27)pkAddWords(day,27-collected.length);});
+            // If there are more than 27, never show more than the requested amount.
+            collected=collected.slice(0,27);
+            html+='<div class="discover-intro"><b>'+collected.length+' Kurukh Words & Sentences</b></div>';
+            var shown=0, currentDay=null;
+            collected.forEach(function(item){
+                if(item.day!==currentDay){
+                    if(currentDay!==null)html+='</div>';
+                    html+='<div class="discover-lesson"><strong>'+pkSafe(item.title)+'</strong>';
+                    currentDay=item.day;
+                }
+                var w=item.word;
+                html+='<div class="discover-preview"><span><b>'+pkSafe(w.hin)+'</b><br><span style="color:var(--primary-light)">'+pkSafe(w.kur)+'</span></span><button class="word-audio" data-hin="'+pkSafe(w.hin)+'" data-kur="'+pkSafe(w.kur)+'" onclick="pkPreviewSpeak(this)">🔊</button></div>';
+                shown++;
+            });
+            if(currentDay!==null)html+='</div>';
+            if(!shown)html+='<div class="course-card">Preview is temporarily unavailable for this topic.</div>';
+            html+='<div class="discover-cta"><h3>🎓 Want to speak beyond these examples?</h3><p>60 Days of structured lessons • Hindi + Kurukh vocabulary • Practice & progress tracking. See full course details and price before purchasing.</p><button class="btn btn-gold" onclick="loadPage(\'course\')">📚 Explore 60 Days Course — '+pkSafe(COURSE_DATA.price)+'</button><button class="btn btn-outline" style="margin-top:9px" onclick="loadPage(\'quiz\')">🧠 Try Free Daily Quiz</button></div>';
+            document.getElementById('mainContent').innerHTML=html;
+            window.scrollTo(0,0);
+        }
+        function pkPreviewSpeak(btn){speakHindiThenKurukh(btn.dataset.hin,btn.dataset.kur,btn,null);}
 
         function openCategory(key) { loadPage(key); }
 
@@ -3978,10 +4161,71 @@
             document.getElementById('mainContent').innerHTML = html;
         }
 
+
+// ADMIN PANEL — privileged actions are enforced by Firestore Security Rules.
+// Client-side UI only displays an administrator role verified by admins/{uid}.
+function pkAdminButton(uid,label,action,klass){
+    return '<button class="btn '+(klass||'btn-outline')+'" style="width:auto;margin:3px;padding:9px 12px;font-size:.73rem" data-uid="'+pkSafe(uid)+'" onclick="pkAdminAction(this,\''+action+'\')">'+label+'</button>';
+}
+async function pkRenderAdmin(){
+    const target=document.getElementById('mainContent');
+    if(!APP_STATE.isLoggedIn){loadPage('login');return;}
+    if(!window.pkIsAdmin||!window.pkAdminGetDashboard){
+        target.innerHTML='<div class="page-title">🛡️ ADMIN PANEL</div><div class="course-card"><h3>🔒 Administrator access required</h3><p style="font-size:.78rem;margin-top:10px">Sign in with your verified Firebase account. The owner must register its Firebase UID under admins/{uid} in Firebase Console. Name, village and phone alone cannot grant administrator privileges.</p><button class="btn btn-outline" style="margin-top:14px" onclick="loadPage(\'account\')">My Account / Firebase UID</button></div>';
+        return;
+    }
+    target.innerHTML='<div class="page-title">🛡️ POCKET KURUKH — ADMIN PANEL</div><div class="course-card">⏳ Loading verified payment requests…</div>';
+    try{
+        const data=await window.pkAdminGetDashboard();
+        if(_pkCurrentPage!=='admin')return;
+        const requests=data.requests||[];
+        const entitlements=data.entitlements||[];
+        const learners=data.profiles||[];
+        const granted=entitlements.filter(e=>e.approved===true).length;
+        const pending=requests.filter(r=>r.status==='pending').length;
+        const verifiedName=pkSafe(window.pkAdminProfile?.displayName||APP_STATE.user?.name||'Admin');
+        const summary='<div class="course-card"><h3>Welcome, '+verifiedName+'</h3><p style="font-size:.75rem;color:var(--text-light)">Verified administrator • '+pkSafe(window.pkAdminProfile?.village||'')+'</p><div class="pk-admin-stats"><span>⏳ Pending<b>'+pending+'</b></span><span>✅ Course Unlocked<b>'+granted+'</b></span><span>👥 Learners<b>'+learners.length+'</b></span></div><p style="font-size:.67rem;margin-top:9px">Verify receipt and UTR against your actual UPI/bank statement before approving. Submitted UTR is not payment proof.</p><button class="btn btn-outline" style="margin-top:10px" onclick="pkRenderAdmin()">🔄 Refresh Admin Data</button></div>';
+        let items=requests.slice().sort((a,b)=>Number(b.status==='pending')-Number(a.status==='pending')).map(r=>{
+            const who=pkSafe(r.name||'Unknown learner');
+            const phone=pkSafe(r.phone||r.email||'');
+            const status=pkSafe(r.status||'pending');
+            const buttons=r.status==='pending' ? '<div>'+pkAdminButton(r.uid,'✅ Confirm Payment & Unlock','approve','btn-primary')+pkAdminButton(r.uid,'❌ Reject','reject','btn-outline')+'</div>' : '';
+            return '<div class="pk-admin-request"><b>'+who+'</b><p>'+phone+'</p><p>₹'+Number(r.amount||0)+' • UTR: <code>'+pkSafe(r.utr||'')+'</code></p><p>Status: <b>'+status+'</b></p><p class="pk-admin-uid">UID: '+pkSafe(r.uid)+'</p>'+buttons+'</div>';
+        }).join('');
+        let access=entitlements.filter(e=>e.approved===true).map(e=>'<div class="pk-admin-request"><b>'+pkSafe(e.name||e.uid)+'</b><p class="pk-admin-uid">UID: '+pkSafe(e.uid)+'</p>'+pkAdminButton(e.uid,'🔒 Revoke Course Access','revoke')+'</div>').join('');
+        let roster=learners.map(person=>{
+            const authorized=entitlements.find(entry=>entry.uid===person.uid)?.approved===true;
+            const rowControls=authorized?'<span style="color:#166534">✅ Unlocked</span>':pkAdminButton(person.uid,'🔓 Manually Unlock (after verification)','grant','btn-outline');
+            return '<div class="pk-admin-request pk-learner-row" data-search="'+pkSafe((person.name||'')+' '+(person.phone||'')+' '+(person.email||'')+' '+person.uid).toLowerCase()+'"><b>'+pkSafe(person.name||'Learner')+'</b><p>'+pkSafe(person.phone||person.email||'')+'</p><p class="pk-admin-uid">UID: '+pkSafe(person.uid)+'</p>'+rowControls+'</div>';
+        }).join('');
+        const html='<div class="page-title">🛡️ ADMIN DASHBOARD</div>'+summary+'<div class="course-card"><h3>💳 Payment Requests</h3>'+(items||'<p style="margin:12px 0;font-size:.8rem">No payment requests found.</p>')+'</div><div class="course-card"><h3>🎓 Students with Course Access</h3>'+(access||'<p style="margin:12px 0;font-size:.8rem">No approved students yet.</p>')+'</div><div class="course-card"><h3>👥 Registered Learners</h3><p style="font-size:.7rem;margin:8px 0">Only verified admin can view registered learner profiles.</p><input style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px" placeholder="Search learner name, mobile or UID" oninput="pkFilterAdminLearners(this.value)" />'+(roster||'<p style="margin:12px 0;font-size:.8rem">No registered profiles yet.</p>')+'</div>';
+        target.innerHTML=html;
+    }catch(e){target.innerHTML='<div class="course-card"><h3>⚠️ Could not load admin records</h3><p style="font-size:.8rem">'+pkSafe(e.code||e.message||'Permission denied')+'</p><p style="font-size:.72rem">Please publish the updated Firestore Rules and check your Firebase admin UID.</p><button class="btn btn-outline" style="margin-top:10px" onclick="pkRenderAdmin()">Retry</button></div>';console.error('Admin dashboard:',e);}
+}
+function pkFilterAdminLearners(term){
+    const q=String(term||'').trim().toLowerCase();
+    document.querySelectorAll('.pk-learner-row').forEach(row=>{row.style.display=(row.dataset.search||'').includes(q)?'block':'none';});
+}
+async function pkAdminAction(button,action){
+    if(!window.pkIsAdmin||!APP_STATE.isLoggedIn)return showToast('Administrator login required');
+    const uid=button?.dataset.uid;
+    if(!uid||!/^[A-Za-z0-9_-]{6,128}$/.test(uid))return showToast('Invalid Firebase UID');
+    const prompts={approve:'Have you verified ₹199 and the exact UTR in your bank/UPI account? Approve and unlock this learner?',reject:'Reject this pending payment request?',revoke:'Revoke this learner’s paid course access?',grant:'MANUAL COURSE GRANT: Have you personally verified payment or authorized complimentary access? Grant course access to this UID?'};
+    if(!confirm(prompts[action]||'Confirm this action?'))return;
+    button.disabled=true;
+    try{
+        if(!window.pkAdminApplyAction)throw Error('Firebase admin action is unavailable');
+        await window.pkAdminApplyAction(uid,action);
+        showToast(action==='approve'||action==='grant'?'✅ Course access unlocked':action==='reject'?'Payment request rejected':'🔒 Course access revoked',4000);
+        if(_pkCurrentPage==='admin')await pkRenderAdmin();
+    }catch(e){button.disabled=false;showToast('Admin action failed: '+(e.code||e.message),5500);console.error('Admin action:',e);}
+}
+
         // ============================================================================
         //  NAVIGATION
         // ============================================================================
         function loadPage(page) {
+            _pkCurrentPage=page;
             stopAutoPlay();
 
             var navItems = document.querySelectorAll('.nav-item');
@@ -3994,12 +4238,17 @@
 
             if (page === 'home') renderHome();
             else if (page === 'login') renderLogin();
+            else if (page === 'account') pkRenderAccount();
+            else if (page === 'admin') pkRenderAdmin();
             else if (page === 'phrases') renderPhrases();
             else if (page === 'flashcards') renderFlashcards();
             else if (page === 'numbers-colors') renderNumbersColours();
             else if (page === 'course') renderCoursePage();
             else if (page === 'my-learning') renderCourseFolderView();
             else if (page === 'more') renderMore();
+            else if(page==='speaking') pkRenderSpeaking();
+            else if(page==='quiz') pkRenderQuiz();
+            else if(page==='achievements') pkRenderAchievements();
             else if (page === 'nature') renderCategory('nature');
             else { var found = null;
                 var keys = Object.keys(categories); for (var i = 0; i < keys.length; i++) { if (keys[i] === page) found =
@@ -4019,6 +4268,27 @@
                     '📤 Share this app with your friends!'); } }
 
         function rateApp() { alert('⭐ Please rate this app 5 stars! ⭐'); }
+
+        // === Pocket Kurukh Learning Lab: practice, quiz, streaks, achievements ===
+        function pkSafe(t){return String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        function pkStoreKey(k){return 'pk_lab_'+k+'_'+(window.pkUserUid||APP_STATE.user?.mobile||'guest');}
+        function pkGet(k, fallback){try{return JSON.parse(localStorage.getItem(pkStoreKey(k)))??fallback;}catch{return fallback;}}
+        function pkPut(k,v){localStorage.setItem(pkStoreKey(k),JSON.stringify(v));}
+        function pkDate(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+        function pkRecordActivity(){let a=pkGet('activity',[]);let d=pkDate();if(!a.includes(d)){a.push(d);pkPut('activity',a);}}
+        function pkStreak(){let a=new Set(pkGet('activity',[]));let d=new Date();if(!a.has(pkDate()))d.setDate(d.getDate()-1);let n=0;while(true){let key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!a.has(key))break;n++;d.setDate(d.getDate()-1);}return n;}
+        function pkWords(){let out=[];Object.keys(COURSE_DATA.days).forEach(k=>(COURSE_DATA.days[k].words||[]).forEach(w=>{if(w.hin&&w.kur)out.push({hin:w.hin,kur:w.kur,day:k});}));return out;}
+        function pkDailyWords(){let all=pkWords(), date=pkDate(), seed=[...date].reduce((a,c)=>a+c.charCodeAt(0),0);return Array.from({length:Math.min(8,all.length)},(_,i)=>all[(seed*17+i*67)%all.length]);}
+        function pkRenderSpeaking(){let words=pkDailyWords();window.pkSpeechWords=words;document.getElementById('mainContent').innerHTML=`<div class="page-title">🎤 Speaking Practice</div><div class="course-card"><h3>Listen • Speak • Compare</h3><p style="font-size:.76rem;margin:10px 0">Practice Kurukh aloud. Browser speech recognition may not support Kurukh. Hindi recognition is only an approximation; it cannot grade Kurukh pronunciation reliably. You may review your own speech.</p><label style="font-size:.7rem">Choose a word</label><select id="pkSpeakWord" style="width:100%;padding:12px;margin:8px 0" onchange="pkShowSpeakWord()">${words.map((w,i)=>`<option value="${i}">${pkSafe(w.hin)} — ${pkSafe(w.kur)}</option>`).join('')}</select><div id="pkSpeakTarget" style="font-size:1.3rem;font-weight:bold;padding:14px 0"></div><button class="btn btn-gold" onclick="speakOnlyKurukh(window.pkSpeechWords[+document.getElementById('pkSpeakWord').value].kur)">🔊 Listen</button><button class="btn btn-primary" style="margin-top:10px" onclick="pkSpeakStart()">🎤 Start microphone</button><p id="pkSpeakResult" style="font-size:.83rem;margin-top:14px" aria-live="polite"></p></div>`;pkShowSpeakWord();}
+        function pkShowSpeakWord(){let w=window.pkSpeechWords[+document.getElementById('pkSpeakWord').value];document.getElementById('pkSpeakTarget').textContent=w.kur+' ('+w.hin+')';document.getElementById('pkSpeakResult').textContent='';}
+        function pkSpeakStart(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;let el=document.getElementById('pkSpeakResult');if(!SR){el.textContent='This browser does not support speech recognition. Listen and repeat aloud.';return;}let r=new SR();r.lang='hi-IN';r.interimResults=false;r.onresult=e=>{let transcript=e.results[0][0].transcript;el.textContent='Detected: '+transcript+'. Compare it with the Kurukh word above yourself (automatic Kurukh grading is unavailable).';pkRecordActivity();};r.onerror=e=>el.textContent='Microphone / recognition error: '+e.error;r.start();el.textContent='Listening…';}
+        var pkQuizState={idx:0,correct:0,answered:false,questions:[]};
+        function pkBuildQuiz(){let w=pkDailyWords(), all=pkWords();return w.map((word,i)=>{let alternatives=all.filter(x=>x.kur!==word.kur&&x.hin!==word.hin).sort((a,b)=>((a.hin.charCodeAt(0)+i*31)%997)-((b.hin.charCodeAt(0)+i*31)%997)).slice(0,3);let options=[word,...alternatives];let shift=i%4;options=options.slice(shift).concat(options.slice(0,shift));return{word,options,answer:options.findIndex(x=>x===word)};}).filter(q=>q.options.length===4);}
+        function pkRenderQuiz(){pkQuizState={idx:0,correct:0,answered:false,questions:pkBuildQuiz()};pkDrawQuiz();}
+        function pkDrawQuiz(){let st=pkQuizState, box=document.getElementById('mainContent');if(st.idx>=st.questions.length){let old=pkGet('quizBest',0);pkPut('quizBest',Math.max(old,st.correct));pkPut('quizLast',{date:pkDate(),score:st.correct,total:st.questions.length});pkRecordActivity();box.innerHTML=`<div class="course-card"><h2>🎉 Challenge Complete</h2><p>Score: ${st.correct}/${st.questions.length}</p><button class="btn btn-primary" onclick="pkRenderQuiz()">Try Again</button><button class="btn btn-outline" style="margin-top:8px" onclick="pkRenderAchievements()">View Achievements</button></div>`;return;}let q=st.questions[st.idx];box.innerHTML=`<div class="page-title">🧠 Daily Kurukh Quiz — ${pkDate()}</div><div class="course-card"><p>Question ${st.idx+1} of ${st.questions.length} • Correct ${st.correct}</p><h3 style="margin:18px 0">What is the Kurukh word for “${pkSafe(q.word.hin)}”?</h3>${q.options.map((o,i)=>`<button class="btn btn-outline" style="margin:6px 0;text-align:left" onclick="pkAnswerQuiz(${i})">${String.fromCharCode(65+i)}. ${pkSafe(o.kur)}</button>`).join('')}<div id="pkFeedback" aria-live="polite"></div><button id="pkNextQuiz" class="btn btn-primary" style="margin-top:10px;display:none" onclick="pkQuizState.idx++;pkQuizState.answered=false;pkDrawQuiz()">Next →</button></div>`;}
+        function pkAnswerQuiz(i){let st=pkQuizState;if(st.answered)return;st.answered=true;let q=st.questions[st.idx],yes=i===q.answer;if(yes)st.correct++;document.querySelectorAll('#mainContent .btn-outline').forEach(b=>b.disabled=true);document.getElementById('pkFeedback').textContent=(yes?'✅ Correct! ':'❌ Not quite. ')+q.word.hin+' = '+q.word.kur;document.getElementById('pkNextQuiz').style.display='block';}
+        function pkRenderAchievements(){let total=Object.keys(COURSE_DATA.days).length,done=APP_STATE.completedLessons.length,best=pkGet('quizBest',0),streak=pkStreak();document.getElementById('mainContent').innerHTML=`<div class="page-title">🏆 My Learning Achievements</div><div class="course-card"><h2>🔥 ${streak} day learning streak</h2><p>Complete lessons: ${done}/${total}</p><p>Best daily quiz score: ${best}/8</p><p style="margin:10px 0">Achievements: ${done>=1?'🥉 First Lesson ':''}${done>=15?'🥈 15 Lessons ':''}${done>=30?'🥇 30 Lessons ':''}${best>=6?'🧠 Quiz Star ':''}${streak>=7?'🔥 7-Day Streak':''}</p></div><div class="course-card"><h3>🎓 Course Certificate</h3><p style="font-size:.8rem;margin:10px 0">${done>=total&&total>=60&&APP_STATE.hasPurchased&&window.pkVerifiedEntitlement?'All lessons completed — eligible for locally generated completion certificate.':'Complete all 60 lessons with verified course access to unlock your certificate.'}</p><button class="btn btn-gold" ${done>=total&&total>=60&&APP_STATE.hasPurchased&&window.pkVerifiedEntitlement?'':'disabled'} onclick="pkPrintCertificate()">🖨️ Print Certificate</button><p style="font-size:.7rem;margin-top:8px">Certificate is a self-issued learning completion record, not an accredited qualification.</p></div>`;}
+        function pkPrintCertificate(){if(!APP_STATE.isLoggedIn||!APP_STATE.hasPurchased||!window.pkVerifiedEntitlement||APP_STATE.completedLessons.length<60)return;let w=window.open('','_blank');if(!w){showToast('Allow popups to print the certificate');return;}let name=pkSafe(APP_STATE.user?.name||'Learner');w.document.write(`<!doctype html><html><head><title>Pocket Kurukh Certificate</title><style>body{font-family:Georgia,sans-serif;text-align:center;padding:90px 40px;border:14px double #1a472a}h1{font-size:38px;color:#1a472a}h2{font-size:32px;color:#b48a27}p{font-size:18px}</style></head><body><h1>Pocket Kurukh</h1><h2>Certificate of Completion</h2><p>This certifies that</p><h2>${name}</h2><p>has completed the Pocket Kurukh 60 Days Learning Course.</p><p>Date: ${pkDate()}</p><p>Issued by Kurukh Pride • Roshan Toppo</p><small>Self-issued course completion record; not an accredited certificate.</small></body></html>`);w.document.close();w.focus();w.print();}
 
         // ============================================================================
         //  INIT
@@ -4059,6 +4329,15 @@
 
         updateBadge();
         loadPage('home');
+        setTimeout(function(){
+            if(window.pkFirebaseStatus==='loading') {
+                window.pkFirebaseStatus='unavailable';
+                console.warn('Firebase module not loaded — ensure HTTPS, internet and script access.');
+                if(_pkCurrentPage==='course'&&!window.pkAuthReady) {
+                    document.getElementById('mainContent').innerHTML='<div class="course-card"><h3>⚠️ Login service unavailable</h3><p>Check internet, Firebase setup and HTTPS hosting.</p><button class="btn btn-outline" onclick="loadPage(\'login\')">Try Login</button></div>';
+                }
+            }
+        },10000);
         console.log('📱 Pocket Kurukh — Tenses reorganized: Present (31-38), Past (39-46), Future (47-54)');
   </script>
 
@@ -4066,63 +4345,142 @@
   <!-- FIREBASE MODULE -->
   <!-- ============================================================================ -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDjZf_-g9IkMf4NoBdLXJX_e3Qf4sVQczo",
-            authDomain: "pocket-kurukh.firebaseapp.com",
-            projectId: "pocket-kurukh",
-            storageBucket: "pocket-kurukh.firebasestorage.app",
-            messagingSenderId: "523631987246",
-            appId: "1:523631987246:web:938243d9c6cef345926dbf"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.saveUserToFirebaseImpl = async function(mobile, name, address) {
-            try {
-                await setDoc(doc(db, "users", mobile), {
-                    name: name,
-                    mobile: mobile,
-                    address: address,
-                    approved: false,
-                    createdAt: new Date().toISOString()
-                });
-                console.log("✅ User data saved to Firebase:", mobile);
-            } catch (err) {
-                console.error("❌ Error saving user:", err);
-            }
-        };
-
-        window.checkPurchaseStatus = async function(mobile) {
-            try {
-                console.log("🔥 Checking Firebase for:", mobile);
-                const ref = doc(db, "users", mobile);
-                const snap = await getDoc(ref);
-                if (snap.exists()) {
-                    const data = snap.data();
-                    if (data.approved === true) {
-                        APP_STATE.hasPurchased = true;
-                        saveState();
-                        console.log("✅ Course unlocked for", mobile);
-                        return true;
-                    } else {
-                        console.log("⏳ Not approved yet for", mobile);
-                        return false;
-                    }
-                } else {
-                    console.log("❌ User not found in Firebase:", mobile);
-                    return false;
-                }
-            } catch (err) {
-                console.error("❌ Error checking purchase status:", err);
-                return false;
-            }
-        };
-
-        console.log("🔥 Firebase module loaded successfully");
+    // All course approvals are stored server-side in Firestore entitlements/{uid}.
+    // This client must never write entitlements, only submit a pending payment request.
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, getDocFromServer, getDocs, collection, setDoc, updateDoc, writeBatch, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
+    const config={apiKey:'AIzaSyDjZf_-g9IkMf4NoBdLXJX_e3Qf4sVQczo',authDomain:'pocket-kurukh.firebaseapp.com',projectId:'pocket-kurukh',storageBucket:'pocket-kurukh.firebasestorage.app',messagingSenderId:'523631987246',appId:'1:523631987246:web:938243d9c6cef345926dbf'};
+    const app=initializeApp(config),auth=getAuth(app),db=getFirestore(app);
+    window.pkFirebaseStatus='ready';
+    let confirmation=null,recaptcha=null;
+    const googleProvider=new GoogleAuthProvider();
+    auth.useDeviceLanguage();
+    window.pkVerifiedEntitlement=false;
+    window.pkGoogleSignIn=async()=>{
+      try {return await signInWithPopup(auth,googleProvider);}
+      catch(e){throw e;} // GitHub Pages redirect fallback fails in browsers blocking third-party storage.
+    };
+    window.pkSignOut=()=>signOut(auth);
+    window.pkCheckAdmin=async()=>{
+      window.pkIsAdmin=false;window.pkAdminProfile=null;
+      const current=auth.currentUser;
+      if(!current){updateBadge();return false;}
+      try{
+        const record=await getDocFromServer(doc(db,'admins',current.uid));
+        const isAdmin=record.exists()&&record.data().enabled===true;
+        window.pkIsAdmin=isAdmin;
+        window.pkAdminProfile=isAdmin?record.data():null;
+        updateBadge();
+        return isAdmin;
+      }catch(e){console.warn('Admin role verification unavailable',e);updateBadge();return false;}
+    };
+    window.pkAdminGetDashboard=async()=>{
+      if(!auth.currentUser||!window.pkIsAdmin||!await window.pkCheckAdmin())throw Error('Administrator privileges required');
+      const [reqs,ents,profs]=await Promise.all([getDocs(collection(db,'paymentRequests')),getDocs(collection(db,'entitlements')),getDocs(collection(db,'profiles'))]);
+      const profiles=profs.docs.map(d=>({uid:d.id,...d.data()}));
+      const requests=await Promise.all(reqs.docs.map(async d=>{
+        let person={};try{const p=await getDoc(doc(db,'profiles',d.id));person=p.exists()?p.data():{};}catch(e){console.warn('Profile unavailable',e);}
+        return {uid:d.id,...d.data(),name:person.name||'',phone:person.phone||'',email:person.email||''};
+      }));
+      const entitlements=ents.docs.map(d=>({uid:d.id,...d.data(),name:profiles.find(r=>r.uid===d.id)?.name||''}));
+      return {requests,entitlements,profiles};
+    };
+    window.pkAdminApplyAction=async(uid,action)=>{
+      if(!auth.currentUser||!window.pkIsAdmin||!await window.pkCheckAdmin())throw Error('Administrator privileges required');
+      const adminUID=auth.currentUser.uid;
+      if(action==='approve'||action==='reject'){
+        const requestRef=doc(db,'paymentRequests',uid);
+        const snap=await getDocFromServer(requestRef);
+        if(!snap.exists()||snap.data().status!=='pending')throw Error('Request is no longer pending. Refresh the panel.');
+        if(snap.data().amount!==199||snap.data().course!=='pocket-kurukh-60')throw Error('Wrong payment amount or course');
+        const batch=writeBatch(db);
+        if(action==='approve')batch.set(doc(db,'entitlements',uid),{approved:true,approvedBy:adminUID,updatedAt:serverTimestamp()},{merge:true});
+        batch.update(requestRef,{status:action==='approve'?'approved':'rejected',reviewedAt:serverTimestamp(),reviewedBy:adminUID});
+        await batch.commit();
+      }else if(action==='revoke'||action==='grant'){
+        await setDoc(doc(db,'entitlements',uid),{approved:action==='grant',approvedBy:adminUID,updatedAt:serverTimestamp()},{merge:true});
+      }else throw Error('Unknown admin action');
+    };
+    window.pkSendSmsOtp=async(mobile)=>{
+      if(recaptcha){try{recaptcha.clear()}catch(e){} recaptcha=null;}
+      recaptcha=new RecaptchaVerifier(auth,'pkRecaptcha',{size:'normal'});
+      await recaptcha.render();
+      try{confirmation=await signInWithPhoneNumber(auth,mobile,recaptcha);}
+      catch(e){try{recaptcha.clear()}catch(err){}recaptcha=null;throw e;}
+    };
+    window.pkVerifySmsOtp=async(code)=>{
+      if(!confirmation)throw Error('Request an SMS OTP first');
+      const result=await confirmation.confirm(code);
+      const data=window.pkPhoneDraft||APP_STATE.user;
+      if(data&&result.user.phoneNumber!=='+91'+data.mobile)throw Error('Phone mismatch');
+      await setDoc(doc(db,'profiles',result.user.uid),{
+        name:data?.name||'Learner',address:data?.address||'',phone:result.user.phoneNumber,
+        email:'',provider:'phone',updatedAt:serverTimestamp()
+      },{merge:true});
+    };
+    window.checkPurchaseStatus=async()=>{
+      window.pkVerifiedEntitlement=false;APP_STATE.hasPurchased=false;
+      if(!auth.currentUser){saveState();return false;}
+      try{
+        // Do not trust the browser's localStorage or an offline cached purchase flag.
+        const snap=await getDocFromServer(doc(db,'entitlements',auth.currentUser.uid));
+        const approved=snap.exists()&&snap.data().approved===true;
+        window.pkVerifiedEntitlement=approved;APP_STATE.hasPurchased=approved;saveState();return approved;
+      }catch(e){console.warn('Secure course access verification unavailable',e);saveState();return false;}
+    };
+    window.pkLoadPaymentRequest=async()=>{
+      if(!auth.currentUser){window.pkPaymentRequest=null;return null;}
+      try{
+        let snapshot=await getDoc(doc(db,'paymentRequests',auth.currentUser.uid));
+        window.pkPaymentRequest=snapshot.exists()?snapshot.data():null;
+        return window.pkPaymentRequest;
+      }catch(e){console.warn('Payment request unavailable',e);window.pkPaymentRequest=null;return null;}
+    };
+    window.pkCreatePaymentRequest=async(utr)=>{
+      const user=auth.currentUser;
+      if(!user)throw Error('Sign in first');
+      if(!/^[A-Z0-9]{12,22}$/.test(utr))throw Error('Invalid UPI reference');
+      const data={uid:user.uid,utr,amount:199,course:'pocket-kurukh-60',method:'UPI',status:'pending',createdAt:serverTimestamp()};
+      await setDoc(doc(db,'paymentRequests',user.uid),data);
+      return {...data,createdAt:null};
+    };
+    onAuthStateChanged(auth,async(user)=>{
+      window.pkAuthReady=true;
+      if(!user){
+        APP_STATE.isLoggedIn=false;APP_STATE.user=null;APP_STATE.hasPurchased=false;
+        window.pkVerifiedEntitlement=false;window.pkUserUid=null;window.pkPaymentRequest=null;
+        window.pkIsAdmin=false;window.pkAdminProfile=null;
+        saveState();updateBadge();
+        if(_pkCurrentPage==='course')renderCoursePage();
+        if(_pkCurrentPage==='account')renderLogin();
+        return;
+      }
+      APP_STATE.isLoggedIn=true;window.pkUserUid=user.uid;
+      const phone=user.phoneNumber?.replace(/^\+91/,'')||'';
+      const draft=window.pkPhoneDraft?.mobile===phone?window.pkPhoneDraft:null;
+      const fallback={name:draft?.name||user.displayName||'Learner',mobile:phone,email:user.email||'',address:draft?.address||''};
+      try{
+        const snap=await getDoc(doc(db,'profiles',user.uid));
+        const profile=snap.exists()?snap.data():{};
+        APP_STATE.user={...fallback,...profile,mobile:fallback.mobile,email:fallback.email||profile.email||''};
+      }catch(e){APP_STATE.user=fallback;}
+      try{
+        if(user.providerData.some(p=>p.providerId==='google.com')){
+          await setDoc(doc(db,'profiles',user.uid),{
+            name:APP_STATE.user.name||fallback.name,address:APP_STATE.user.address||'',
+            phone:APP_STATE.user.mobile||'',email:user.email||'',provider:'google',updatedAt:serverTimestamp()
+          },{merge:true});
+        }
+      }catch(e){console.warn('Profile save was not completed',e);}
+      await window.pkCheckAdmin();
+      await window.checkPurchaseStatus();
+      await window.pkLoadPaymentRequest();
+      saveState();updateBadge();_initialCheckDone=true;
+      if(_pkCurrentPage==='login'||_pkCurrentPage==='course')loadPage('course');
+      else if(_pkCurrentPage==='account')pkRenderAccount();
+      else if(_pkCurrentPage==='admin')pkRenderAdmin();
+    });
   </script>
 
 </body>
